@@ -1,0 +1,2 @@
+## About
+This directory contains workshop materials on how to build a basic ToDo application and deploy it to Bluemix.  Currently there are materials for Node.js and Java.  Each version contains a final version of the code, a starter version of the code, and a presentation describing the steps to complete the workshop.  The presentation is an HTML 5 deck and can be run locally by opening the index.html file in your favorite browser.

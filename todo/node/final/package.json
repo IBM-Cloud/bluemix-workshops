@@ -1,0 +1,13 @@
+{
+  "name": "Node-ToDo",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "3.4.8",
+    "optional" : "0.1.0",
+    "cfenv": "1.0.0",
+    "cloudant": "1.0.0-beta3"
+  }
+}

@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<!--
+ * Copyright IBM Corp. 2014
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=1024, user-scalable=no">
+
+  <title>Bluemix</title>
+
+  <!-- Required stylesheet -->
+  <link rel="stylesheet" media="screen" href="core/deck.core.css">
+
+  <!-- Extension CSS files go here. Remove or add as needed. -->
+  <link rel="stylesheet" media="screen" href="extensions/goto/deck.goto.css">
+  <link rel="stylesheet" media="screen" href="extensions/menu/deck.menu.css">
+  <link rel="stylesheet" media="screen" href="extensions/navigation/deck.navigation.css">
+  <link rel="stylesheet" media="screen" href="extensions/status/deck.status.css">
+  <link rel="stylesheet" media="screen" href="extensions/scale/deck.scale.css">
+
+  <!-- Style theme. More available in /themes/style/ or create your own. -->
+  <link rel="stylesheet" media="screen" href="themes/style/bluemix.css">
+
+  <!-- Transition theme. More available in /themes/transition/ or create your own. -->
+  <link rel="stylesheet" media="screen" href="themes/transition/horizontal-slide.css">
+
+  <!-- Basic black and white print styles -->
+  <link rel="stylesheet" media="print" href="core/print.css">
+
+  <link rel="stylesheet" href="magnific-popup.css">
+
+  <!-- Required Modernizr file -->
+  <script src="modernizr.custom.js"></script>
+</head>
+<body>
+  <div class="deck-container">
+
+    <!-- Begin slides. Just make elements with a class of slide. -->
+
+    <section class="slide header-footer-slide">
+      <div class="title">
+        <h1>Todo Node.js Workshop</h1>
+        <h2>Ryan Baxter</h2>
+        <h2>@ryanjbaxter</h2>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Prerequisites</div>
+      <div class="slide-content">
+        <p>Here are a list of prerequisites you will need to complete this workshop.</p>
+        <ul>
+          <li><a target="_blank" href="http://nodejs.org/">Node.js &amp; NPM</a></li>
+          <li><a target="_blank" href="https://www.ng.bluemix.net/docs/#starters/BuildingWeb.html#install_cf">Cloud Foundry Command Line Tools</a></li>
+          <li><a target="_blank" href="https://apps.admin.ibmcloud.com/manage/trial/bluemix.html">Bluemix Account</a></li>
+          <li>Your Favorite Text Editor For Node</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Creating A Node App In Bluemix</div>
+      <div class="slide-content">
+        <ol>
+          <li>Got to <a href="http://bluemix.bet" target="_blank">bluemix.net</a> and login.</li>
+          <li>In the header, select the Catalog link</li>
+          <li>In the Catalog select the Node.js runtime</li>
+          <li>In the resulting dialog give your application the name node-todo</li>
+          <li>The hostname will match the application name by default, you will need to change it to be unique.
+            For example, you can append your name to node-todo.</li>
+          <li>Click Create to create your application</li>
+        </ol>
+        <a class="popup-link" href="http://www.youtube.com/watch?v=8RMsKhMxThE">Watch Demonstration</a>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Viewing The Default App</div>
+      <div class="slide-content">
+        <ul>
+          <li>
+            You will be brought to the application dashboard once the app is created and while
+            the deployment is taking place.
+          </li>
+          <li>
+            After about 30 seconds your application should be up and running.
+            Select the route to launch the app in your browser.
+          </li>
+        </ul>
+        <a class="popup-link" href="https://www.youtube.com/watch?v=KRbfBrxob6Y">Watch Demonstration</a>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Deploy The ToDo App</div>
+      <div class="slide-content">
+        <ol>
+          <li>Clone the GitHub repo here, or download the zip containing the code.  If you download the
+            zip you will need to extract it.
+
+            <div class="shell-wrap">
+              <p class="shell-top-bar">/Users/bluemix/todos</p>
+              <ul class="shell-body">
+                <li>git clone http://...</li>
+              </ul>
+            </div>
+          </li>
+          <li>Open a terminal window and change your directory containing the ToDo code</li>
+          <li>
+            <p>Deploy the application to Bluemix using the Cloud Foundry CLI by running the following command</p>
+            <div class="shell-wrap">
+              <p class="shell-top-bar">/Users/bluemix/todos</p>
+              <ul class="shell-body">
+                <li>cf push node-todo -c "node app.js"</li>
+              </ul>
+            </div>
+          </li>
+        </ol>
+        <p>After about 30 seconds your app should be deployed to Bluemix.  Refresh the browser to see the new
+          UI or go back to Bluemix and select the URL to launch it again.  You should now see the ToDo
+          UI instead of the sample application.
+        </p>
+
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Not Working As Expected</div>
+      <div class="slide-content">
+        <p>Open your browsers developer console and reload the page, you will notice there is an error.
+          This is because the web application is making a request to a URL that does not exist yet.
+        </p>
+
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">REST APIs</div>
+      <div class="slide-content">
+        <p>
+          There are several REST APIs that need to be implemented in order to make our
+          ToDo application work.
+        </p>
+
+        <ul>
+          <li>GET /api/todos - This API should return a JSON array of all ToDo objects</li>
+          <li>
+            POST /api/todos - This API can be used to create a new ToDo.  The POST body
+            should contain the JSON representation of a ToDo.  The API should return the same
+            JSON ToDo object but with a unique id to identify it.</li>
+          <li>
+            PUT /api/todos/{id} - This API can be used to update an existing ToDo.  The id
+            in the path represents the id of the ToDo you would like to update.  The PUT
+            body should include a JSON representation of the ToDo with the updated values.
+          </li>
+          <li>
+            DELETE /api/todos/{id} - This API can be used to delete a ToDo.  The id
+            in the path represents the id of the ToDo to delete.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">JSON Representation</div>
+      <div class="slide-content">
+        <p>The JSON representation of a ToDo looks like</p>
+        <script type="syntaxhighlighter" class="brush: js">
+          {
+            "title" : "Get Milk",
+            "order" : 1,
+            "completed" : false,
+            "id" : "12345",
+            "rev" : "6789"
+          }
+        </script>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">What About Persistence</div>
+      <div class="slide-content">
+        <p>
+          We are going to want to persist our ToDos somewhere so when a user comes back to the application
+          or refreshes the page they will see the same data.  In our application we will choose to use
+          Cloudant.
+        </p>
+        <ol>
+          <li>From the application dashboard in Bluemix select the Add A Service button.
+            This will bring you back to the Bluemix catalog.</li>
+          <li>In the data management section of the catalog select the Cloudant service.</li>
+          <li>In the service dialog give the service the name "todo-cloudant" and click create.</li>
+          <li>You will be asked to restage the application click cancel for now.</li>
+          <li>You should now see a tile for Cloudant in your application dashboard,
+            click the arrow next to the word Credentials.  There are the credentials for your application
+            to access Cloudant.
+          </li>
+        </ol>
+        <a class="popup-link" href="https://www.youtube.com/watch?v=PCUinXdEe9c">Watch Demonstration</a>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Creating A Cloudant DB</div>
+      <div class="slide-content">
+        <p>
+          We are going to need a DB in Cloudant to actually use in our application, so
+          lets create one.
+        </p>
+        <ol>
+          <li>From the application dashboard in Bluemix, select the Cloudant service you
+            bound to your application.</li>
+          <li>In the resulting page select the Launch button in the top left.  This will bring
+            you to the Cloudant dashboard.</li>
+          <li>In the header select "Add New Database".</li>
+          <li>Enter the name "todos" and click create.</li>
+        </ol>
+        <a class="popup-link" href="https://www.youtube.com/watch?v=Q_POsUOXVAE">Watch Demonstration</a>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Getting Into The Code</div>
+      <div class="slide-content">
+        <ul>
+          <li>Open the Node.js code from GitHub in your favorite editor or IDE</li>
+          <li>
+            Open app.js and take a minute to familiarize yourself with the code.  It should like like your
+            basic Express application.
+          </li>
+          <li>
+            Open package.json and take a look at the dependencies that we currently have
+          </li>
+          <li>
+            Install all the dependencies you need to run the application by running the following 
+            command from the project root
+            <div class="shell-wrap">
+              <p class="shell-top-bar">/Users/bluemix/todos</p>
+              <ul class="shell-body">
+                <li>npm install</li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            Start the HTTP server by running
+            <div class="shell-wrap">
+              <p class="shell-top-bar">/Users/bluemix/todos</p>
+              <ul class="shell-body">
+                <li>node app.js</li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Adding New Dependencies</div>
+      <div class="slide-content">
+        <p>
+          We will be using 2 additional libraries when updating our ToDo app.
+        </p>
+        <ul>
+          <li>
+            <a href="https://www.npmjs.org/package/cfenv">cfenv</a> - 
+            This library provides several helper functions for Node.js applications
+            running on Cloud Foundry platforms like Bluemix.  The include convenience methods
+            for extracting credentials from VCAP_SERVICES and a way to tell if the application
+            if running in the cloud or running locally.
+          </li>
+          <li>
+            <a href="https://www.npmjs.org/package/cloudant">cloudant</a> - 
+              This is the officially supported Node.js library from Cloudant.  We will
+            use this for all our interactions with our database in Cloudant.
+          </li>
+        </ul>
+        <p>Open package.json and add the 2 new dependencies.</p>
+        <script type="syntaxhighlighter" class="brush: js">
+          {
+            "name": "Node-ToDo",
+            "version": "0.0.1",
+            "scripts": {
+              "start": "node app.js"
+            },
+            "dependencies": {
+              "express": "3.4.8",
+              "optional" : "0.1.0",
+              "cfenv": "1.0.0",
+              "cloudant": "1.0.0-beta3"
+            }
+          }
+        </script>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Cloudant Credentials</div>
+      <div class="slide-content">
+        <ul>
+          <li>We want to run our application locally and in Bluemix, so our code needs to handle both cases</li>
+          <li>In Bluemix the credentials for Cloudant can be found in the VCAP_SERVICES environment variable</li>
+          <li>When running locally we should load an external file containing the credentials</li>
+        </ul>
+        <p>Open app.js and add the following code
+        </p>
+
+        <script type="syntaxhighlighter" class="brush: js">
+          var cfenv = require('cfenv');
+          var cloudantLocal = optional('./cloudant.json');
+          var CloudantApis = require('cloudant');
+          var appEnv = cfenv.getAppEnv();
+          var cloudantService;
+          if(appEnv.isLocal) {
+            if(cloudantLocal) {
+              cloudantService = cloudantLocal.cloudantNoSQLDB;
+            }
+          } else {
+            cloudantService = appEnv.getService('todo-cloudant');  
+          }
+          if(!cloudantService || cloudantService == null) {
+            throw new Error('No Cloudant service found.');
+          }
+        </script>
+
+        <p>In the code above we have required 2 new libraries, cfenv and cloudant.  We are also using the 
+          optional library to load a file called cloudant.json.  cloudant.json will contain our Cloudant
+          credentials and will be used when running locally.  We use appEnv.isLocal to figure out if we
+          are running locally and use appEnv.getService to access the Cloudant credentials when running
+          in Bluemix.
+        </p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Creating cloudant.json</div>
+      <div class="slide-content">
+        <ul>
+          <li>
+            We need to create the cloudant.json file we reference in the code on the previous slide.
+          </li>
+          <li>
+            Copy the credentials for the Cloudant service from your application dashboard in Bluemix
+            to a file called cloudant.json and save the file
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Connecting To Cloudant</div>
+      <div class="slide-content">
+        <p>
+          We need to connect to Cloudant and access our DB.  The below code can be used to do
+          this, app it to app.js.
+        </p>
+        <script type="syntaxhighlighter" class="brush: js">
+          var todoDb;
+          function getToDoDb(cb) {
+            if(todoDb) {
+              cb(undefined, todoDb);
+            } else {
+              CloudantApis({account:cloudantService.credentials.username, password:cloudantService.credentials.password}, 
+                function(err, cloudant) {
+                  console.log('Logged into cloudant');
+                  if(err) {
+                    cb(err);
+                  } else {
+                    cb(err, cloudant.db.use('todos'));
+                  }
+                }
+              );
+            }
+          };
+        </script>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Login To Cloudant At Startup</div>
+      <div class="slide-content">
+        <p>
+          We probably want to connect to Cloudant before we start the web server since we can't really
+          do anything without a DB.  We can modify the call to http.createServer to do this.
+        </p>
+        <script type="syntaxhighlighter" class="brush: js">
+          getToDoDb(function(err, db) {
+            if(err) {
+              throw err;
+            } else {
+              todoDb = db;
+              http.createServer(app).listen(app.get('port'), function(){
+                console.log('Express server listening on port ' + app.get('port'));
+              });  
+            }
+          });
+        </script>
+        <p>
+          Here we are calling our getToDoDb function and setting the todoDb variable to 
+          the DB before creating the HTTP server.  We will use the todoDb variable later on.
+        </p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Test It Out</div>
+      <div class="slide-content">
+        <ul>
+          <li>
+            At this point you can test out your code.  First install the new dependencies.
+            <div class="shell-wrap">
+              <p class="shell-top-bar">/Users/bluemix/todos</p>
+              <ul class="shell-body">
+                <li>npm install</li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            Now run the application.
+            <div class="shell-wrap">
+              <p class="shell-top-bar">/Users/bluemix/todos</p>
+              <ul class="shell-body">
+                <li>node app.js</li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+        <p>
+          If your code worked you should see a message printed in your console saying that you logged
+          into Cloudant and the http server should start.
+        </p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Implementing GET /api/todos</div>
+      <div class="slide-content">
+        <p>Now we are ready to implement our GET request.  Add the following code in app.js</p>
+        <script type="syntaxhighlighter" class="brush: js">
+          app.get('/api/todos', function(req, res) {
+            todoDb.list({"include_docs": true}, function(err, body) {
+              if(err) {
+                res.send(500, err);
+              } else {
+                res.end(JSON.stringify(body.rows.map(function(row) {
+                  return {
+                    "id" : row.doc._id,
+                    "rev" : row.doc._rev,
+                    "title" : row.doc.title,
+                    "order" : row.doc.order,
+                    "completed" : row.doc.completed
+                  }
+                })));
+              }
+            });
+          });
+        </script>
+        <p>
+          This code uses the list API to get all documents from the DB.  It passes
+          the include_docs parameter to make sure we return the document body.  We
+          then map each row to match the JSON representation of a ToDo that the client
+          expects and return that array.  Note, instead of doing this JSON mapping in
+          the API implementation it could have, and probably should have, been done
+          in a view in our DB.
+        </p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Implementing POST /api/todos</div>
+      <div class="slide-content">
+        <p>Add the following code to app.js to implement the POST method.</p>
+        <script type="syntaxhighlighter" class="brush: js">
+          app.post('/api/todos', function(req, res) {
+            var todo = req.body;
+            todoDb.insert(todo, function(err, body) {
+              if(err) {
+                res.send(500, err);
+              } else {
+                todo.id = body.id
+                todo.rev = body.rev;
+                res.end(JSON.stringify(todo));
+              }
+            });
+          });
+        </script>
+        <p>
+          This code uses the insert API to insert the ToDo JSON from the POST body into the DB.
+          After the ToDo is inserted it adds the id and revision to the ToDo JSON and responds
+          back to the client.
+        </p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Implementing PUT /api/todos/{id}</div>
+      <div class="slide-content">
+        <p>Add the following code to app.js to implement the PUT method.</p>
+        <script type="syntaxhighlighter" class="brush: js">
+          app.put('/api/todos/:id', function(req, res) {
+            var todo = req.body;
+            todoDb.get(req.params.id, function(err, update) {
+              if(err) {
+                res.send(500, err);
+              } else {
+                update.title = todo.title;
+                update.completed = todo.completed;
+                update.order = todo.order;
+                todoDb.insert(update, function(err, body) {
+                  if(err) {
+                    res.send(500, err);
+                  } else {
+                    res.end(JSON.stringify(update));
+                  }
+                });
+              }
+            });
+          });
+        </script>
+        <p>
+          We first get the ToDo from the DB that is specified in the id path parameter then
+          we update it with the data from the ToDo JSON from the PUT body.  Finally we insert the
+          ToDo back into the DB and return the JSON back to the client.
+        </p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Implementing DELETE /api/todos/{id}</div>
+      <div class="slide-content">
+        <p>Add the following code to app.js to implement the DELETE method.</p>
+        <script type="syntaxhighlighter" class="brush: js">
+          app.delete('/api/todos/:id', function(req, res) {
+            todoDb.get(req.params.id, function(err, body) {
+              if(err) {
+                res.send(500, err);
+              } else {
+                body._deleted = true;
+                todoDb.bulk({"docs": [body]}, {}, function(err, result) {
+                  if(err) {
+                    res.send(500, err);
+                  } else {
+                    res.send(204);
+                  }
+                });
+              }
+            });
+          });
+        </script>
+        <p>
+          We first get the ToDo from the DB with the ID that is specified in the path parameter.
+          Then we add the _deleted field to it and send it as a parameter to the bulk API.  The bulk
+          API will then delete the ToDo from the DB.
+        </p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Testing It Out</div>
+      <div class="slide-content">
+        <ul>
+          <li>
+            We have implementations for all APIs at this point so lets try out the application
+            <div class="shell-wrap">
+              <p class="shell-top-bar">/Users/bluemix/todos</p>
+              <ul class="shell-body">
+                <li>node app.js</li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            Head to <a href="http://localhost:3000">http://localhost:3000</a> and you should be able
+            to add update and delete ToDos without any errors. 
+          </li>
+          <li>
+            You should be able to verify ToDos are being placed in the DB by going back to your Cloudant
+            dashboard, selecting the todo DB and opening some of the documents in there.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Ignoring Files When Deploying To Bluemix</div>
+      <div class="slide-content">
+        <p>
+          Create a new file called .cfignore.  This file acts just like .gitignore if you are a Git user,
+          it specifies files and directories to ignore when deploying your application.  Add the following
+          lines to this file.
+        </p>
+        <script type="syntaxhighlighter" class="brush: text">
+          /node-modules
+          cloudant.json
+        </script>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Simple and Consistent Deployments</div>
+      <div class="slide-content">
+        <p>
+          We can use something called a 
+          <a href="https://www.ng.bluemix.net/docs/#manageapps/index-gentopic2.html#appmanifest">manifest file</a> to specify parameters for our deployment to 
+          Bluemix.  Manifests make our cf push command simple and consistent 
+          by taking all the parameters and putting them in a file.  Add the following code to a file
+          call manifest.yml.
+        </p>
+        <script type="syntaxhighlighter" class="brush: text">
+           ---
+          applications:
+          - name: youAppName
+            memory: 128M
+            command: node app.js
+            services:
+            - todo-cloudant
+        </script>
+        <p>
+          If you would like an easy way of generating these files check out the 
+          <a href="http://cfmanigen.mybluemix.net/">CF Manifest Generator</a>.
+        </p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Deploying Working ToDo App</div>
+      <div class="slide-content">
+        <ul>
+          <li>We are ready to do our deployment, but wouldn't it be nice to see the logs of our application while
+          we deploy the application?</li>
+          <li>Open a new terminal window.  You should now have 2 terminals open.</li>
+          <li>
+            In one run the following command
+            <div class="shell-wrap">
+              <p class="shell-top-bar">/Users/bluemix/todos</p>
+              <ul class="shell-body">
+                <li>cf logs node-todo</li>
+              </ul>
+           </div>
+          </li>
+          <li>
+            In the other terminal window run the following command from the project root
+            <div class="shell-wrap">
+              <p class="shell-top-bar">/Users/bluemix/todos</p>
+              <ul class="shell-body">
+                <li>cf push</li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+        <p>
+          Notice we don't need to specify any parameters to cf push.  That is because it will automatically
+          look for, and use the manifest.yml file if it finds one.
+          In about 30 seconds your deployment should finish and your application should be deployed.
+          Head to your application URL and try it out.
+        </p>
+        <a class="popup-link" href="https://www.youtube.com/watch?v=ECTBmocODGc">Watch Demonstration</a>
+      </div>
+    </section>
+
+    <section class="slide header-footer-slide">
+      <div class="title center">
+        <h1>THANK YOU!</h1>
+        <h2>http://bluemix.net</h2>
+      </div>
+    </section>
+
+    <!-- End slides. -->
+
+    <!-- Begin extension snippets. Add or remove as needed. -->
+
+    <!-- deck.navigation snippet -->
+    <div aria-role="navigation">
+      <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+      <a href="#" class="deck-next-link" title="Next">&#8594;</a>
+    </div>
+
+    <!-- deck.status snippet -->
+    <p class="deck-status" aria-role="status">
+      <span class="deck-status-current"></span>
+      /
+      <span class="deck-status-total"></span>
+    </p>
+
+    <div class="logo">
+      <img src="themes/style/BluemixLogo.png" height="40px" width="40px" />
+      <span class="hashtag">#Bluemix<span>
+    </div>
+
+    <!-- deck.goto snippet -->
+    <form action="." method="get" class="goto-form">
+      <label for="goto-slide">Go to slide:</label>
+      <input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
+      <datalist id="goto-datalist"></datalist>
+      <input type="submit" value="Go">
+    </form>
+
+    <!-- End extension snippets. -->
+  </div>
+
+<!-- Required JS files. -->
+<script src="jquery.min.js"></script>
+<script src="core/deck.core.js"></script>
+
+<!-- Extension JS files. Add or remove as needed. -->
+<script src="extensions/menu/deck.menu.js"></script>
+<script src="extensions/goto/deck.goto.js"></script>
+<script src="extensions/status/deck.status.js"></script>
+<script src="extensions/navigation/deck.navigation.js"></script>
+<script src="extensions/scale/deck.scale.js"></script>
+<script src="extensions/deck.syntaxhighlighter.js"></script>
+<script src="jquery.magnific-popup.min.js"></script>
+
+<!-- Initialize the deck. You can put this in an external file if desired. -->
+<script>
+  $(function() {
+    $.deck('.slide');
+  });
+
+  $(document).ready(function() {
+    $('.popup-link').magnificPopup({ 
+      type: 'iframe',
+      iframe: {
+        markup: '<div class="mfp-iframe-scaler">'+
+                '<div class="mfp-close"></div>'+
+                '<iframe class="mfp-iframe" frameborder="0" allowfullscreen></iframe>'+
+                '</div>', // HTML markup of popup, `mfp-close` will be replaced by the close button
+
+        patterns: {
+          youtube: {
+            index: 'youtube.com/', // String that detects type of video (in this case YouTube). Simply via url.indexOf(index).
+
+            id: 'v=', // String that splits URL in a two parts, second part should be %id%
+            // Or null - full URL will be returned
+            // Or a function that should return %id%, for example:
+            // id: function(url) { return 'parsed id'; } 
+
+            src: 'http://www.youtube.com/embed/%id%?autoplay=1' // URL that will be set as a source for iframe. 
+          },
+          vimeo: {
+            index: 'vimeo.com/',
+            id: '/',
+            src: '//player.vimeo.com/video/%id%?autoplay=1'
+          },
+          gmaps: {
+            index: '//maps.google.',
+            src: '%id%&output=embed'
+          }
+        },
+
+        srcAction: 'iframe_src', // Templating object key. First part defines CSS selector, second attribute. "iframe_src" means: find "iframe" and set attribute "src".
+      }
+    });
+  });
+</script>
+</body>
+</html>
