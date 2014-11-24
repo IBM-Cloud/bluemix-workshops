@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<!--
+ * Copyright IBM Corp. 2014
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=1024, user-scalable=no">
+
+  <title>Bluemix - ToDo Java Workshop</title>
+
+  <!-- Required stylesheet -->
+  <link rel="stylesheet" media="screen" href="core/deck.core.css">
+
+  <!-- Extension CSS files go here. Remove or add as needed. -->
+  <link rel="stylesheet" media="screen" href="extensions/goto/deck.goto.css">
+  <link rel="stylesheet" media="screen" href="extensions/menu/deck.menu.css">
+  <link rel="stylesheet" media="screen" href="extensions/navigation/deck.navigation.css">
+  <link rel="stylesheet" media="screen" href="extensions/status/deck.status.css">
+  <link rel="stylesheet" media="screen" href="extensions/scale/deck.scale.css">
+
+  <!-- Style theme. More available in /themes/style/ or create your own. -->
+  <link rel="stylesheet" media="screen" href="themes/style/bluemix.css">
+
+  <!-- Transition theme. More available in /themes/transition/ or create your own. -->
+  <link rel="stylesheet" media="screen" href="themes/transition/horizontal-slide.css">
+
+  <!-- Basic black and white print styles -->
+  <link rel="stylesheet" media="print" href="core/print.css">
+
+  <link rel="stylesheet" href="magnific-popup.css">
+
+  <!-- Required Modernizr file -->
+  <script src="modernizr.custom.js"></script>
+</head>
+<body>
+  <div class="deck-container">
+
+    <!-- Begin slides. Just make elements with a class of slide. -->
+
+    <section class="slide header-footer-slide">
+      <div class="title">
+        <h1>ToDo Java Workshop</h1>
+        <h2>Ryan Baxter</h2>
+        <h2>@ryanjbaxter</h2>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Goals</div>
+      <div class="slide-content">
+        <p>In this workshop you will learn about the following:</p>
+        <ul>
+          <li>How to create an application in Bluemix</li>
+          <li>How to bind a service to your application</li>
+          <li>How to use the credential provided by the service in your application</li>
+          <li>How to deploy new code to your application in Bluemix</li>
+          <li>How to view the logs of your application running in Bluemix</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Prerequisites</div>
+      <div class="slide-content">
+        <p>Here are a list of prerequisites you will need in order to complete this workshop.</p>
+        <ul>
+          <li><a target="_blank" href="https://www.eclipse.org/downloads/packages/eclipse-ide-java-ee-developers/lunasr1">Eclipse Luna for Java EE Developers</a></li>
+          <li><a target="_blank" href="https://developer.ibm.com/wasdev/downloads/liberty-profile-beta/">IBM Liberty Profile Beta</a></li> 
+          <li><a target="_blank" href="https://www.ng.bluemix.net/docs/#starters/BuildingWeb.html#install_cf">Cloud Foundry Command Line Tools</a></li>
+          <li><a target="_blank" href="https://apps.admin.ibmcloud.com/manage/trial/bluemix.html">Bluemix Account</a></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Setting Up Your Liberty Server In Eclipse</div>
+      <div class="slide-content">
+        <ul>
+          <li>Install the Websphere Developer Tools for Eclipse as specified in the 
+            <a href="https://developer.ibm.com/wasdev/downloads/liberty-profile-beta/" target="_blank">instructions.</a></li>
+          <li>Open the servers view in Eclipse</li> 
+          <li>Right click in the servers view and add a new Liberty server.  If you follow the wizard it will ask you to download the Liberty runtime, make sure you select the beta runtime.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Creating A Java App In Bluemix</div>
+      <div class="slide-content">
+        <ol>
+          <li>Go to <a href="http://bluemix.bet" target="_blank">bluemix.net</a></li>
+          <li>Login with the ID and password you used to register</li>
+          <li>In the header, select the Catalog link</li>
+          <li>In the Catalog select the Liberty for Java runtime</li>
+          <li>In the resulting dialog, give your application the name java-todo</li>
+          <li>The hostname will match the application name by default, you will need to change it to be unique.
+            For example, you can append your name to java-todo, ie ryan-java-todo.</li>
+          <li>Click Create to create your application</li>
+        </ol>
+        <a class="popup-link" href="http://www.youtube.com/watch?v=8RMsKhMxThE">Watch Demonstration</a>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Viewing The Default App</div>
+      <div class="slide-content">
+        <ul>
+          <li>
+            You will be brought to the application dashboard once the app is created.
+          </li>
+          <li>While your application is now created in Bluemix, it is not yet deployed.  Keep an eye on the status indicator in the upper right-hand corner, it will update as the application goes through the deployment process.</li>
+          <li>
+            After about 30 seconds your application should be up and running.
+            Select the route to launch the app in your browser.
+          </li>
+        </ul>
+        <a class="popup-link" href="https://www.youtube.com/watch?v=KRbfBrxob6Y">Watch Demonstration</a>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Logging Into Bluemix From The Command Line</div>
+      <div class="slide-content">
+        <p>You should already have the Cloud Foundry Command Line Tools installed, if not go to the prerequisites slide and follow the link to the install instructions.</p>
+        <ol>
+          <li>Open a terminal window</li>
+          <li>Issue the cf login command
+
+            <div class="shell-wrap">
+              <p class="shell-top-bar">/Users/bluemix/todos</p>
+              <ul class="shell-body">
+                <li>$ cf login -a api.ng.bluemix.net</li>
+              </ul>
+            </div>
+          </li>
+          <li>The cf login command will prompt you for your username and password.  Enter the same username and password you use to login to Bluemix.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Getting The Code</div>
+      <div class="slide-content">
+        <ol>
+          <li>Clone the GitHub repo or download the 
+            <a href="https://github.com/IBM-Bluemix/bluemix-workshops/archive/master.zip">zip</a> 
+            containing the code.  If you download the zip you will need to extract the code after the download completed.
+
+            <div class="shell-wrap">
+              <p class="shell-top-bar">/Users/bluemix/todos</p>
+              <ul class="shell-body">
+                <li>$ git clone https://github.com/IBM-Bluemix/bluemix-workshops.git</li>
+              </ul>
+            </div>
+          </li>
+          <li>In Eclipse go to File -> Import -> General -> Existing Project into Workspace</li>
+          <li>In the resulting dialog navigate to bluemix-workshops/todo/java/starter and click OK.</li>
+          <li>You should now see the CloudantToDos project listed inside the import dialog, click Finish to import the project.</li>
+        </ol>
+        <a class="popup-link" href="https://www.youtube.com/watch?v=_VIcijIDyog">Watch Demonstration</a>
+
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Building The App</div>
+      <div class="slide-content">
+        <ol>
+          <li>In Eclipse, expand the CloudantToDos project</li>
+          <li>Right click on the build.xml file and select Run As -> Ant Build...</li>
+          <li>In the resulting dialog, click Run</li>
+          <li>The Console view in Eclipse should open and the build should complete successfully</li>
+          <li>Right click on the CloudantToDos project in Eclipse and select "Refresh"</li>
+          <li>You should now see a new file in the project called ToDoCloudant.war</li>
+        </ol>
+        <a class="popup-link" href="https://www.youtube.com/watch?v=_VIcijIDyog">Watch Demonstration</a>
+      </div>
+    </section>
+
+
+
+    <section class="slide">
+      <div class="header">Deploy The ToDo App</div>
+      <div class="slide-content">
+        <ol>
+          <li>Open a terminal window and change your directory to the directory containing the ToDo code
+            <div class="shell-wrap">
+              <p class="shell-top-bar">/Users/bluemix/todos</p>
+              <ul class="shell-body">
+                <li>$ cd bluemix-workshops/todo/java/starter/CloudantToDo</li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <p>Deploy the application to Bluemix using the Cloud Foundry CLI by running the following command</p>
+            <div class="shell-wrap">
+              <p class="shell-top-bar">/Users/bluemix/todos</p>
+              <ul class="shell-body">
+                <li>$ cf push java-todo -p CloudantToDo.war</li>
+              </ul>
+            </div>
+          </li>
+        </ol>
+        <p>After about 30 seconds your app should be deployed to Bluemix.  Refresh the browser to see the new
+          UI or go back to Bluemix and select the URL to launch it again.  You should now see the ToDo
+          UI instead of the sample application.
+        </p>
+        <a class="popup-link" href="https://www.youtube.com/watch?v=_VIcijIDyog">Watch Demonstration</a>
+
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Not Working As Expected</div>
+      <div class="slide-content">
+        <p>Open your browsers developer console and reload the page, you will notice there is an error.
+          This is because the web application is making a request to a URL that does not exist yet.
+        </p>
+        <a class="popup-link" href="https://www.youtube.com/watch?v=qbYElNV467w">Watch Demonstration</a>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">REST APIs</div>
+      <div class="slide-content">
+        <p>
+          There are several REST APIs that need to be implemented in order to make our
+          ToDo application work.
+        </p>
+
+        <ul>
+          <li><b>GET /api/todos</b> - This API should return a JSON array of all ToDo objects</li>
+          <li>
+            <b>POST /api/todos</b> - This API can be used to create a new ToDo.  The POST body
+            should contain the JSON representation of a ToDo.  The API should return the same
+            JSON ToDo object from the POST body but with a unique id to identify it.</li>
+          <li>
+            <b>PUT /api/todos/{id}</b> - This API can be used to update an existing ToDo.  The id
+            in the path represents the id of the ToDo you would like to update.  The PUT
+            body should include a JSON representation of the ToDo with the updated values.  The API should return the updated JSON ToDo.
+          </li>
+          <li>
+            <b>DELETE /api/todos/{id}</b> - This API can be used to delete a ToDo.  The id
+            in the path represents the id of the ToDo to delete.  This API should not return anything.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">JSON Representation</div>
+      <div class="slide-content">
+        <p>The JSON representation of a ToDo looks like this</p>
+        <script type="syntaxhighlighter" class="brush: js">
+          {
+            "title" : "Get Milk",
+            "order" : 1,
+            "completed" : false,
+            "id" : "12345",
+            "rev" : "6789"
+          }
+        </script>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Adding A Cloudant Service</div>
+      <div class="slide-content">
+        <p>
+          We are going to want to persist our ToDos in a database so when a user comes back to the application
+          or refreshes the page they will see the same ToDos.  In our application we will choose to use
+          Cloudant.
+        </p>
+        <ol>
+          <li>From the application dashboard in Bluemix select the "Add A Service" button.
+            This will bring you back to the Bluemix catalog.</li>
+          <li>In the data management section of the catalog select the Cloudant service.</li>
+          <li>In the service dialog give the service the name "todo-cloudant" and click "Create".</li>
+          <li>You will be asked to restage the application, click cancel for now.</li>
+          <li>You should now see a tile for Cloudant in your application dashboard,
+            click the arrow next to the word "Credentials".  These are the credentials your application will use to access Cloudant.
+          </li>
+        </ol>
+        <a class="popup-link" href="https://www.youtube.com/watch?v=PCUinXdEe9c">Watch Demonstration</a>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Creating A Cloudant DB</div>
+      <div class="slide-content">
+        <p>
+          We are going to need a DB in Cloudant to actually use in our application, so
+          lets create one.
+        </p>
+        <ol>
+          <li>From the application dashboard in Bluemix, select the Cloudant service you
+            bound to your application.</li>
+          <li>In the resulting page select the "Launch" button in the top left.  This will bring
+            you to the Cloudant dashboard.</li>
+          <li>In the header select "Add New Database".</li>
+          <li>Enter the name "todos" and click "Create".</li>
+        </ol>
+        <a class="popup-link" href="https://www.youtube.com/watch?v=Q_POsUOXVAE">Watch Demonstration</a>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Setting Up Liberty To Connect To Cloudant</div>
+      <div class="slide-content">
+        <ul>
+          <li>Liberty can be configured to use the Ektorp Java API For CouchDB for communicating with Cloudant</li>
+          <li>In the Servers view within Eclipse expand the Websphere Application Server Liberty Profile and double click on the server element to open the server.xml</li>
+          <li>Copy the contents of the server.xml file from bluemix-workshops/todo/java into your own server.xml in Eclipse</li>
+          <li>There are a couple of key parts to this server.xml
+            <ul>
+              <li>We have added the couchdb-1.0 feature to the feature manager</li>
+              <li>There is library with the id couchdb-lib which points to several jars in the server's lib directory.  We will place these jars in this folder a little later.</li>
+              <li>There is a couchdb element which should point to Cloudant.  We will configure this element with the right credentials a little later.</li>
+              <li>We have created a web application for the CloudantToDo app and have told
+                Liberty to provide the jars in the couchdb-lib to the application at runtime</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Adding Couch DB Jars To The Liberty Runtime</div>
+      <div class="slide-content">
+        <ul>
+          <li>In the previous slide we pointed our server.xml at some jars in our Liberty runtime, so we need to make sure those jars are there</li>
+          <li>Copy all the jars from bluemix-workshops/todos/java/starter/CloudantToDos/dep-libs into &lt;liberty&gt;/usr/servers/defaultServer/lib
+            <ul>
+              <li>The liberty directory is the directory where you downloaded the Liberty beta runtime</li>
+              <li>The defaultServer directory may be called something different for you if you customized the server name when you created it</li>
+              <li>The lib directory may not exist inside your server, if so just create the lib directory and place the jars in that directory</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Configuring Couch DB To Point To Cloudant</div>
+      <div class="slide-content">
+        <ul>
+          <li>We need to configure the couchdb element in our server.xml to point at the Cloudant service we created in Bluemix</li>
+          <li>In the application dashboard in Bluemix expand the credentials section of your Cloudant service</li>
+          <li>In your server.xml in Eclipse replace the host, the username, and password with what is displayed in the Credentials section of the Cloudant service on Bluemix</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Adding Cloudant Resource To The web.xml</div>
+      <div class="slide-content">
+        <ul>
+          <li>We need to add a resource environment reference to the web.xml of our CloudantToDos app to allow the web app to reference the JDNI extension we configured in the server.xml</li>
+          <li>In Eclipse open the WebContent/WEB-INF folder and open the web.xml file</li>
+          <li>Add the following snippet of XML to the web.xml</li>
+          <script type="syntaxhighlighter" class="brush: xml">
+            &lt;resource-env-ref&gt;
+              &lt;resource-env-ref-name&gt;couchdb/todo-cloudant&lt;/resource-env-ref-name&gt;
+              &lt;resource-env-ref-type&gt;org.ektorp.CouchDbInstance&lt;/resource-env-ref-type&gt;
+            &lt;/resource-env-ref&gt;
+            </script>
+        </ul>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Test It Out</div>
+      <div class="slide-content">
+        <ul>
+          <li>
+            At this point we can run our application in our local Liberty server
+          </li>
+          <li>
+            In the Servers view within Eclipse right click on the Websphere Application Server and select debug
+          </li>
+          <li>The console in Eclipse should open showing you information about the server starting</li>
+          <li>One the server starts click the link in the Console view to the CloudantToDos application or copy the link and open it in your favorite browser</li>
+          <li>Just like in the version running on Bluemix, you will notice errors in the developer console of your browser to the missing API endpoints</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Creating A ToDo POJO</div>
+      <div class="slide-content">
+        <ul>
+          <li>Since we are good Java developers we probably want to create a Java object to represent a ToDo.  Besides being good practice, we can take advantage of Jackson to serialize and deserialize our POJO to and from JSON.</li>
+          <li>In the package net.bluemix.todos, create a new class called ToDo</li>
+          <li>Copy the following code into the resulting class file
+            <script type="syntaxhighlighter" class="brush: java">
+              import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+              import com.fasterxml.jackson.annotation.JsonInclude;
+              import com.fasterxml.jackson.annotation.JsonInclude.Include;
+              import com.fasterxml.jackson.annotation.JsonProperty;
+
+              @JsonInclude(Include.NON_NULL)
+              @JsonIgnoreProperties({"id", "revision"})
+              public class ToDo {
+                @JsonProperty("_id")
+                private String id;
+                @JsonProperty("_rev")
+                private String revision;
+                private String title;
+                private int order;
+                private boolean completed;
+              }
+            </script>
+          </li>
+          <li>We want to provide getters and setters for our private variables and Eclipse can help.  Go to Source -> Generate Getters and Setters...</li>
+          <li>Click the Select All button in the resulting dialog, then click OK</li>
+          <li>Save the class file</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Generating Getters and Setters</div>
+      <div class="slide-content">
+        <ul>
+          <li>In order for Jackson to do serialization we need to provide getters and setters for our private variables.</li>
+          <li>We can use Eclipse to generate our getters and setters.  Go to Source -> Generate Getters and Setters...</li>
+          <li>Click the Select All button in the resulting dialog, then click OK</li>
+          <li>Save the class file</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Interfacing With Cloudant</div>
+      <div class="slide-content">
+        <ul>
+          <li>The <a href="http://ektorp.org/javadoc/ektorp/1.4.1/org/ektorp/support/CouchDbRepositorySupport.html" target="_blank">CouchDbRepositorySupport class</a> from the Ektorp library can be used to perform all CRUD operations on our Cloudant DB</li>
+          <li>Using a class like this will make our lives easier when implementing our REST APIs</li>
+          <li>Create a new class called ToDoRepository in the net.bluemix.todos package and add the following code
+            <script type="syntaxhighlighter" class="brush: java">
+              import org.ektorp.CouchDbConnector;
+              import org.ektorp.support.CouchDbRepositorySupport;
+
+              public class ToDoRepository extends CouchDbRepositorySupport<ToDo>{
+                protected ToDoRepository(CouchDbConnector db) {
+                  super(ToDo.class, db);
+                }
+              }
+            </script>
+          </li>
+        <li>Save the class file</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Creating Our REST Controller</div>
+      <div class="slide-content">
+        <ul>
+          <li>At this point we are ready to implement our REST APIs</li>
+          <li>Create a class called ToDoRestController and add the following code to it
+            <script type="syntaxhighlighter" class="brush: java">
+              import javax.naming.InitialContext;
+              import javax.naming.NamingException;
+              import javax.ws.rs.Path;
+              import org.ektorp.CouchDbConnector;
+              import org.ektorp.CouchDbInstance;
+              import org.ektorp.impl.StdCouchDbConnector;
+              @Path("/todos")
+              public class ToDoRestController {
+                private static ToDoRepository repo;
+                
+                public ToDoRestController() throws NamingException {
+                  if(repo == null) {
+                    CouchDbInstance db = (CouchDbInstance) new InitialContext().lookup("java:comp/env/couchdb/todo-cloudant");
+                    repo = getToDoRespository(getCouchDbConnector(db));
+                  }
+                }
+                
+                private CouchDbConnector getCouchDbConnector(CouchDbInstance couchDbInstance) {
+                  CouchDbConnector connector = new StdCouchDbConnector("todos", couchDbInstance);
+                  connector.createDatabaseIfNotExists();
+                  return connector;
+                }
+                
+                private ToDoRepository getToDoRespository(CouchDbConnector connector) {
+                  return new ToDoRepository(connector);
+                }
+              }
+            </script>
+          </li>
+          <li>Save the class file</li>
+          <li>The @Path annotation tells JAX-RS that the endpoint for this class is at /todos (we have configured JAX-RS in the web.xml to tell it that all endpoints are prepended with the /api)</li>
+          <li>We are using JDNI to ask Liberty for a CouchDbInstance using the credentials we configured in the server.xml</li>
+          <li>Then we use the standard Ektorp APIs to point to our todos database in Cloudant and pass that DB to our ToDoRepository constructor</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Implementing GET /api/todos</div>
+      <div class="slide-content">
+        <p>Now we are ready to implement our GET request.  Add the following method to ToDoRestController</p>
+        <script type="syntaxhighlighter" class="brush: java">
+          @GET
+          @Produces(MediaType.APPLICATION_JSON)
+          public List<ToDo> getAll() {
+            return repo.getAll();
+          }
+        </script>
+        <p>
+          The @GET annotation is tell JAX-RS to call the getAll method of this class when a GET request is made to endpoint /api/todos.
+          See how simple this code becomes when using our repository class and Jackson to serialize our POJO?
+        </p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Implementing POST /api/todos</div>
+      <div class="slide-content">
+        <p>Add the following code to ToDoRestController to implement the POST method.</p>
+        <script type="syntaxhighlighter" class="brush: java">
+          @POST
+          @Consumes(MediaType.APPLICATION_JSON)
+          @Produces(MediaType.APPLICATION_JSON)
+          public ToDo create(ToDo td) {
+            repo.add(td);
+            return td;
+          }
+        </script>
+        <p>
+          The @POST annotation tells JAX-RS to call the create method when a POST request is made to /api/todos.  The td parameter in the method is the serialized JSON object from the POST body.  We then just use our repository to save that object to our Cloudant DB.
+        </p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Implementing PUT /api/todos/{id}</div>
+      <div class="slide-content">
+        <p>Add the following code to ToDoRestController to implement the PUT method.</p>
+        <script type="syntaxhighlighter" class="brush: java">
+          @PUT
+          @Path("{id}")
+          @Consumes(MediaType.APPLICATION_JSON)
+          @Produces(MediaType.APPLICATION_JSON)
+          public ToDo udpate(@PathParam("id") String id, ToDo td) {
+            ToDo update = repo.get(id);
+            update.setCompleted(td.isCompleted());
+            update.setOrder(td.getOrder());
+            update.setTitle(td.getTitle());
+            repo.update(update);
+            return update;
+          }
+        </script>
+        <p>
+          We first get the ToDo from the DB that is specified in the id path parameter, then
+          we update it with the data from the ToDo JSON from the PUT body.  Finally we insert the
+          ToDo back into the DB and return the JSON back to the client.
+        </p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Implementing DELETE /api/todos/{id}</div>
+      <div class="slide-content">
+        <p>Add the following code to app.js to implement the DELETE method.</p>
+        <script type="syntaxhighlighter" class="brush: js">
+          @DELETE
+          @Path("{id}")
+          public void delete(@PathParam("id") String id) {
+            ToDo td = repo.get(id);
+            repo.remove(td);
+          }
+        </script>
+        <p>
+          We first get the ToDo from the DB with the ID that is specified in the path parameter.
+          Then we use the repository to delete the ToDo from the DB.
+        </p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Testing It Out</div>
+      <div class="slide-content">
+        <ul>
+          <li>
+            We have implementations for all APIs at this point so lets try out the application
+          </li>
+          <li>In the Servers view in Eclipse start the Websphere Application Server</li>
+          <li>
+            Head to <a href="http://localhost:9080">http://localhost:9080</a> and you should be able
+            to add update and delete ToDos without any errors. 
+          </li>
+          <li>
+            You should be able to verify ToDos are being placed in the DB by going back to your Cloudant
+            dashboard, selecting the todo DB and opening some of the documents in there.
+          </li>
+        </ul>
+        <a class="popup-link" href="https://www.youtube.com/watch?v=xHVt7FOw348">Watch Demonstration</a>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Simple and Consistent Deployments</div>
+      <div class="slide-content">
+        <p>
+          We can use a 
+          <a href="https://www.ng.bluemix.net/docs/#manageapps/index-gentopic2.html#appmanifest">manifest file</a> to specify parameters for our deployment to 
+          Bluemix.  Manifests make our cf push command simple and consistent 
+          by taking all the parameters we would normally specify on the command line and putting them in a file.  Add the following code to a file
+          call manifest.yml.
+        </p>
+        <script type="syntaxhighlighter" class="brush: text">
+           ---
+          applications:
+          - name: java-todo
+            memory: 512M
+            path: CloudantToDos.war
+            services:
+            - todo-cloudant
+        </script>
+        <p>
+          If you would like an easy way of generating these files check out the 
+          <a href="http://cfmanigen.mybluemix.net/">CF Manifest Generator</a>.
+        </p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Deploying Working ToDo App</div>
+      <div class="slide-content">
+        <ul>
+          <li>We are ready to do our deployment, but wouldn't it be nice to see the logs of our application while
+          we deploy the application?</li>
+          <li>Open a new terminal window.  You should now have 2 terminals open.</li>
+          <li>
+            In one run the following command
+            <div class="shell-wrap">
+              <p class="shell-top-bar">/Users/bluemix/todos</p>
+              <ul class="shell-body">
+                <li>$ cf logs java-todo</li>
+              </ul>
+           </div>
+          </li>
+          <li>
+            In the other terminal window run the following command from bluemix-workshops/todo/java/starter
+            <div class="shell-wrap">
+              <p class="shell-top-bar">/Users/bluemix/todos</p>
+              <ul class="shell-body">
+                <li>$ cf push</li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+        <p>
+          Notice we don't need to specify any parameters to cf push.  That is because it will automatically
+          look for, and use the manifest.yml file if it finds one.
+          In about 30 seconds your deployment should finish and your application should be deployed.
+          Head to your application URL and try it out.
+        </p>
+        <a class="popup-link" href="https://www.youtube.com/watch?v=ECTBmocODGc">Watch Demonstration</a>
+      </div>
+    </section>
+
+    <section class="slide header-footer-slide">
+      <div class="title center">
+        <h1>THANK YOU!</h1>
+        <h2>http://bluemix.net</h2>
+      </div>
+    </section>
+
+    <!-- End slides. -->
+
+    <!-- Begin extension snippets. Add or remove as needed. -->
+
+    <!-- deck.navigation snippet -->
+    <div aria-role="navigation">
+      <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+      <a href="#" class="deck-next-link" title="Next">&#8594;</a>
+    </div>
+
+    <!-- deck.status snippet -->
+    <p class="deck-status" aria-role="status">
+      <span class="deck-status-current"></span>
+      /
+      <span class="deck-status-total"></span>
+    </p>
+
+    <div class="logo">
+      <img src="themes/style/BluemixLogo.png" height="40px" width="40px" />
+      <span class="hashtag">#Bluemix<span>
+    </div>
+
+    <!-- deck.goto snippet -->
+    <form action="." method="get" class="goto-form">
+      <label for="goto-slide">Go to slide:</label>
+      <input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
+      <datalist id="goto-datalist"></datalist>
+      <input type="submit" value="Go">
+    </form>
+
+    <!-- End extension snippets. -->
+  </div>
+
+<!-- Required JS files. -->
+<script src="jquery.min.js"></script>
+<script src="core/deck.core.js"></script>
+
+<!-- Extension JS files. Add or remove as needed. -->
+<script src="extensions/menu/deck.menu.js"></script>
+<script src="extensions/goto/deck.goto.js"></script>
+<script src="extensions/status/deck.status.js"></script>
+<script src="extensions/navigation/deck.navigation.js"></script>
+<script src="extensions/scale/deck.scale.js"></script>
+<script src="extensions/syntaxhighlighter/deck.syntaxhighlighter.js"></script>
+<script src="jquery.magnific-popup.min.js"></script>
+
+<!-- Initialize the deck. You can put this in an external file if desired. -->
+<script>
+  $(function() {
+    $.deck('.slide');
+  });
+
+  $(document).ready(function() {
+    $('.popup-link').magnificPopup({ 
+      type: 'iframe',
+      iframe: {
+        markup: '<div class="mfp-iframe-scaler">'+
+                '<div class="mfp-close"></div>'+
+                '<iframe class="mfp-iframe" frameborder="0" allowfullscreen></iframe>'+
+                '</div>', // HTML markup of popup, `mfp-close` will be replaced by the close button
+
+        patterns: {
+          youtube: {
+            index: 'youtube.com/', // String that detects type of video (in this case YouTube). Simply via url.indexOf(index).
+
+            id: 'v=', // String that splits URL in a two parts, second part should be %id%
+            // Or null - full URL will be returned
+            // Or a function that should return %id%, for example:
+            // id: function(url) { return 'parsed id'; } 
+
+            src: 'http://www.youtube.com/embed/%id%?autoplay=1' // URL that will be set as a source for iframe. 
+          },
+          vimeo: {
+            index: 'vimeo.com/',
+            id: '/',
+            src: '//player.vimeo.com/video/%id%?autoplay=1'
+          },
+          gmaps: {
+            index: '//maps.google.',
+            src: '%id%&output=embed'
+          }
+        },
+
+        srcAction: 'iframe_src', // Templating object key. First part defines CSS selector, second attribute. "iframe_src" means: find "iframe" and set attribute "src".
+      }
+    });
+  });
+</script>
+</body>
+</html>

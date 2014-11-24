@@ -1,0 +1,8 @@
+---
+applications:
+- name: todo-java
+  memory: 512M
+  path: ToDoCloudant.war
+  timeout: 60
+  services:
+  - todo-cloudant

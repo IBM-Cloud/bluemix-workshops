@@ -1,0 +1,25 @@
+<server description="new server">
+    <!-- Enable features -->
+    <featureManager>
+		<feature>webProfile-6.0</feature>
+		<feature>jaxrs-1.1</feature>
+        <feature>couchdb-1.0</feature>
+        <feature>localConnector-1.0</feature>
+        <feature>servlet-3.1</feature>
+    </featureManager>
+
+    <httpEndpoint host="localhost" httpPort="9080" httpsPort="9443" id="defaultHttpEndpoint"/>
+
+	<library id="couchdb-lib">
+		<fileset dir="${server.config.dir}/lib" includes="org.ektorp-1.4.2.jar commons-codec-1.6.jar commons-io-2.4.jar commons-logging-1.1.3.jar httpclient-4.3.3.jar httpclient-cache-4.3.3.jar httpcore-4.3.2.jar jackson-annotations-2.4.0.jar jackson-core-2.4.0.jar jackson-databind-2.4.0.jar slf4j-api-1.7.2.jar slf4j-jdk14-1.7.2.jar"/>
+	</library>
+	
+	<couchdb host="user.cloudant.com" id="couchdb" jndiName="couchdb/todo-cloudant" libraryRef="couchdb-lib" password="secret" port="5984" username="user"/>
+
+    <applicationMonitor updateTrigger="mbean"/>
+
+    <webApplication id="CloudantToDos" location="CloudantToDos.war"
+    	name="CloudantToDos">
+    	<classloader commonLibraryRef="couchdb-lib"></classloader>
+    </webApplication>
+</server>
