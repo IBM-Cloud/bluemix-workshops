@@ -17,7 +17,6 @@
 **/cloudant.json
 **/java/**/bin
 **/.classpath
-**/.project
 **/.settings
 *.class
 
