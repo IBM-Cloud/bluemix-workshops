@@ -16,8 +16,6 @@
 **/node_modules
 **/cloudant.json
 **/java/**/bin
-**/.classpath
-**/.settings
 *.class
 
 # Package Files #
