@@ -79,7 +79,7 @@
         <p>Here are a list of prerequisites you will need in order to complete this workshop.</p>
         <ul>
           <li><a target="_blank" href="https://www.eclipse.org/downloads/packages/eclipse-ide-java-ee-developers/lunasr1">Eclipse Luna for Java EE Developers</a></li>
-          <li><a target="_blank" href="https://developer.ibm.com/wasdev/downloads/liberty-profile-beta/">IBM Liberty Profile Beta</a></li> 
+          <li><a target="_blank" href="https://developer.ibm.com/wasdev/downloads/liberty-profile-using-eclipse/">Websphere Application Server Runtime For Eclipse</a> (<a class="popup-link" href="https://www.youtube.com/watch?v=H1UETm_jn2g">Watch Demonstration</a>)</li> 
           <li><a target="_blank" href="https://www.ng.bluemix.net/docs/#starters/BuildingWeb.html#install_cf">Cloud Foundry Command Line Tools</a></li>
           <li><a target="_blank" href="https://apps.admin.ibmcloud.com/manage/trial/bluemix.html">Bluemix Account</a></li>
         </ul>
@@ -95,6 +95,7 @@
           <li>Open the servers view in Eclipse</li> 
           <li>Right click in the servers view and add a new Liberty server.  If you follow the wizard it will ask you to download the Liberty runtime, make sure you select the beta runtime.</li>
         </ul>
+        <a class="popup-link" href="https://www.youtube.com/watch?v=PNdTuhGamWI">Watch Demonstration</a>
       </div>
     </section>
 
@@ -111,7 +112,7 @@
             For example, you can append your name to java-todo, ie ryan-java-todo.</li>
           <li>Click Create to create your application</li>
         </ol>
-        <a class="popup-link" href="http://www.youtube.com/watch?v=8RMsKhMxThE">Watch Demonstration</a>
+        <a class="popup-link" href="https://www.youtube.com/watch?v=XC3mcJoREmo">Watch Demonstration</a>
       </div>
     </section>
 
@@ -128,7 +129,7 @@
             Select the route to launch the app in your browser.
           </li>
         </ul>
-        <a class="popup-link" href="https://www.youtube.com/watch?v=KRbfBrxob6Y">Watch Demonstration</a>
+        <a class="popup-link" href="https://www.youtube.com/watch?v=_unDcwi8Peg">Watch Demonstration</a>
       </div>
     </section>
 
@@ -171,7 +172,7 @@
           <li>In the resulting dialog navigate to bluemix-workshops/todo/java/starter and click OK.</li>
           <li>You should now see the CloudantToDos project listed inside the import dialog, click Finish to import the project.</li>
         </ol>
-        <a class="popup-link" href="https://www.youtube.com/watch?v=_VIcijIDyog">Watch Demonstration</a>
+        <a class="popup-link" href="https://www.youtube.com/watch?v=X-ke7NWgvPc">Watch Demonstration</a>
 
       </div>
     </section>
@@ -187,7 +188,7 @@
           <li>Right click on the CloudantToDos project in Eclipse and select "Refresh"</li>
           <li>You should now see a new file in the project called ToDoCloudant.war</li>
         </ol>
-        <a class="popup-link" href="https://www.youtube.com/watch?v=_VIcijIDyog">Watch Demonstration</a>
+        <a class="popup-link" href="https://www.youtube.com/watch?v=wKegmEGrxq4">Watch Demonstration</a>
       </div>
     </section>
 
@@ -210,7 +211,7 @@
             <div class="shell-wrap">
               <p class="shell-top-bar">/Users/bluemix/todos</p>
               <ul class="shell-body">
-                <li>$ cf push java-todo -p CloudantToDo.war</li>
+                <li>$ cf push java-todo -p ToDoCloudant.war</li>
               </ul>
             </div>
           </li>
@@ -219,7 +220,7 @@
           UI or go back to Bluemix and select the URL to launch it again.  You should now see the ToDo
           UI instead of the sample application.
         </p>
-        <a class="popup-link" href="https://www.youtube.com/watch?v=_VIcijIDyog">Watch Demonstration</a>
+        <a class="popup-link" href="https://www.youtube.com/watch?v=feTFvUEPBNE">Watch Demonstration</a>
 
       </div>
     </section>
@@ -295,7 +296,7 @@
             click the arrow next to the word "Credentials".  These are the credentials your application will use to access Cloudant.
           </li>
         </ol>
-        <a class="popup-link" href="https://www.youtube.com/watch?v=PCUinXdEe9c">Watch Demonstration</a>
+        <a class="popup-link" href="https://www.youtube.com/watch?v=axxrIB6HnmI">Watch Demonstration</a>
       </div>
     </section>
 
@@ -314,7 +315,7 @@
           <li>In the header select "Add New Database".</li>
           <li>Enter the name "todos" and click "Create".</li>
         </ol>
-        <a class="popup-link" href="https://www.youtube.com/watch?v=Q_POsUOXVAE">Watch Demonstration</a>
+        <a class="popup-link" href="https://www.youtube.com/watch?v=q8xFpU_zx6M">Watch Demonstration</a>
       </div>
     </section>
 
@@ -324,6 +325,7 @@
         <ul>
           <li>Liberty can be configured to use the Ektorp Java API For CouchDB for communicating with Cloudant</li>
           <li>In the Servers view within Eclipse expand the Websphere Application Server Liberty Profile and double click on the server element to open the server.xml</li>
+          <li>Select the "Source" tab in the editor</li>
           <li>Copy the contents of the server.xml file from bluemix-workshops/todo/java into your own server.xml in Eclipse</li>
           <li>There are a couple of key parts to this server.xml
             <ul>
@@ -335,6 +337,7 @@
             </ul>
           </li>
         </ul>
+        <a class="popup-link" href="https://www.youtube.com/watch?v=SvvGBBOkevQ">Watch Demonstration</a>
       </div>
     </section>
 
@@ -351,6 +354,7 @@
             </ul>
           </li>
         </ul>
+        <a class="popup-link" href="https://www.youtube.com/watch?v=9mG14-cM_2U">Watch Demonstration</a>
       </div>
     </section>
 
@@ -362,6 +366,7 @@
           <li>In the application dashboard in Bluemix expand the credentials section of your Cloudant service</li>
           <li>In your server.xml in Eclipse replace the host, the username, and password with what is displayed in the Credentials section of the Cloudant service on Bluemix</li>
         </ul>
+        <a class="popup-link" href="https://www.youtube.com/watch?v=U33OLo_MYMU">Watch Demonstration</a>
       </div>
     </section>
 
@@ -393,9 +398,10 @@
             In the Servers view within Eclipse right click on the Websphere Application Server and select debug
           </li>
           <li>The console in Eclipse should open showing you information about the server starting</li>
-          <li>One the server starts click the link in the Console view to the CloudantToDos application or copy the link and open it in your favorite browser</li>
+          <li>Once the server starts click the link in the Console view to the CloudantToDos application or copy the link and open it in your favorite browser</li>
           <li>Just like in the version running on Bluemix, you will notice errors in the developer console of your browser to the missing API endpoints</li>
         </ul>
+        <a class="popup-link" href="https://www.youtube.com/watch?v=tL87OPfO7Zo">Watch Demonstration</a>
       </div>
     </section>
 
@@ -407,6 +413,7 @@
           <li>In the package net.bluemix.todos, create a new class called ToDo</li>
           <li>Copy the following code into the resulting class file
             <script type="syntaxhighlighter" class="brush: java">
+              package net.bluemix.todos;
               import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
               import com.fasterxml.jackson.annotation.JsonInclude;
               import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -425,9 +432,6 @@
               }
             </script>
           </li>
-          <li>We want to provide getters and setters for our private variables and Eclipse can help.  Go to Source -> Generate Getters and Setters...</li>
-          <li>Click the Select All button in the resulting dialog, then click OK</li>
-          <li>Save the class file</li>
         </ul>
       </div>
     </section>
@@ -441,6 +445,7 @@
           <li>Click the Select All button in the resulting dialog, then click OK</li>
           <li>Save the class file</li>
         </ul>
+        <a class="popup-link" href="https://www.youtube.com/watch?v=jGKjONpPJr4">Watch Demonstration</a>
       </div>
     </section>
 
@@ -452,6 +457,7 @@
           <li>Using a class like this will make our lives easier when implementing our REST APIs</li>
           <li>Create a new class called ToDoRepository in the net.bluemix.todos package and add the following code
             <script type="syntaxhighlighter" class="brush: java">
+              package net.bluemix.todos;
               import org.ektorp.CouchDbConnector;
               import org.ektorp.support.CouchDbRepositorySupport;
 
@@ -474,6 +480,7 @@
           <li>At this point we are ready to implement our REST APIs</li>
           <li>Create a class called ToDoRestController and add the following code to it
             <script type="syntaxhighlighter" class="brush: java">
+              package net.bluemix.todos;
               import javax.naming.InitialContext;
               import javax.naming.NamingException;
               import javax.ws.rs.Path;
@@ -483,22 +490,14 @@
               @Path("/todos")
               public class ToDoRestController {
                 private static ToDoRepository repo;
-                
+   
                 public ToDoRestController() throws NamingException {
                   if(repo == null) {
-                    CouchDbInstance db = (CouchDbInstance) new InitialContext().lookup("java:comp/env/couchdb/todo-cloudant");
-                    repo = getToDoRespository(getCouchDbConnector(db));
+                    CouchDbInstance db = (CouchDbInstance) new InitialContext().lookup(
+                      "java:comp/env/couchdb/todo-cloudant");
+                    CouchDbConnector connector = new StdCouchDbConnector("todos", db);
+                    repo = new ToDoRepository(connector);
                   }
-                }
-                
-                private CouchDbConnector getCouchDbConnector(CouchDbInstance couchDbInstance) {
-                  CouchDbConnector connector = new StdCouchDbConnector("todos", couchDbInstance);
-                  connector.createDatabaseIfNotExists();
-                  return connector;
-                }
-                
-                private ToDoRepository getToDoRespository(CouchDbConnector connector) {
-                  return new ToDoRepository(connector);
                 }
               }
             </script>
@@ -610,7 +609,7 @@
             dashboard, selecting the todo DB and opening some of the documents in there.
           </li>
         </ul>
-        <a class="popup-link" href="https://www.youtube.com/watch?v=xHVt7FOw348">Watch Demonstration</a>
+        <a class="popup-link" href="https://www.youtube.com/watch?v=dnuPvHXBils">Watch Demonstration</a>
       </div>
     </section>
 
@@ -629,7 +628,7 @@
           applications:
           - name: java-todo
             memory: 512M
-            path: CloudantToDos.war
+            path: ToDoCloudant.war
             services:
             - todo-cloudant
         </script>
@@ -672,7 +671,7 @@
           In about 30 seconds your deployment should finish and your application should be deployed.
           Head to your application URL and try it out.
         </p>
-        <a class="popup-link" href="https://www.youtube.com/watch?v=ECTBmocODGc">Watch Demonstration</a>
+        <a class="popup-link" href="https://www.youtube.com/watch?v=Nrffw6h6fmM">Watch Demonstration</a>
       </div>
     </section>
 
@@ -741,7 +740,7 @@
       iframe: {
         markup: '<div class="mfp-iframe-scaler">'+
                 '<div class="mfp-close"></div>'+
-                '<iframe class="mfp-iframe" frameborder="0" allowfullscreen></iframe>'+
+                '<iframe class="mfp-iframe" width="1280" height="720" frameborder="0" allowfullscreen></iframe>'+
                 '</div>', // HTML markup of popup, `mfp-close` will be replaced by the close button
 
         patterns: {
