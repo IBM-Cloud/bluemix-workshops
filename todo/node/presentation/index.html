@@ -53,7 +53,7 @@
 
     <section class="slide header-footer-slide">
       <div class="title">
-        <h1>ToDo Node.js Workshop</h1>
+        <h1>Node.js Workshop: Building A ToDo App</h1>
         <h2>Ryan Baxter</h2>
         <h2>@ryanjbaxter</h2>
       </div>
@@ -65,8 +65,8 @@
         <p>In this workshop you will learn about the following:</p>
         <ul>
           <li>How to create an application in Bluemix</li>
-          <li>How to bind a service to your application</li>
-          <li>How to use the credential provided by the service in your application</li>
+          <li>How to bind a service from the Bluemix Service Catalog to your application in Bluemix</li>
+          <li>How to use the credentials provided by the service in your application code</li>
           <li>How to deploy new code to your application in Bluemix</li>
           <li>How to view the logs of your application running in Bluemix</li>
         </ul>
@@ -76,28 +76,28 @@
     <section class="slide">
       <div class="header">Prerequisites</div>
       <div class="slide-content">
-        <p>Here are a list of prerequisites you will need in order to complete this workshop.</p>
+        <p>Here are a list of prerequisites needed to complete this workshop.</p>
         <ul>
           <li><a target="_blank" href="http://nodejs.org/">Node.js &amp; NPM</a></li>
           <li><a target="_blank" href="https://www.ng.bluemix.net/docs/#starters/BuildingWeb.html#install_cf">Cloud Foundry Command Line Tools</a></li>
-          <li><a target="_blank" href="https://apps.admin.ibmcloud.com/manage/trial/bluemix.html">Bluemix Account</a></li>
-          <li>Your Favorite Text Editor For Node</li>
+          <li><a target="_blank" href="https://apps.admin.ibmcloud.com/manage/trial/bluemix.html">IBM Bluemix Account</a></li>
+          <li>Your Favorite Text Editor For Node.js</li>
         </ul>
       </div>
     </section>
 
     <section class="slide">
-      <div class="header">Creating A Node App In Bluemix</div>
+      <div class="header">Creating A Node.js App In Bluemix</div>
       <div class="slide-content">
         <ol>
           <li>Go to <a href="http://bluemix.bet" target="_blank">bluemix.net</a></li>
-          <li>Login with the ID and password you used to register</li>
-          <li>In the header, select the Catalog link</li>
+          <li>Login with the ID and password you used to register for Bluemix with</li>
+          <li>In the header, select the "Catalog" link</li>
           <li>In the Catalog select the Node.js runtime</li>
-          <li>In the resulting dialog, give your application the name node-todo</li>
+          <li>In the resulting dialog, give your application the name "node-todo"</li>
           <li>The hostname will match the application name by default, you will need to change it to be unique.
-            For example, you can append your name to node-todo, ie ryan-node-todo.</li>
-          <li>Click Create to create your application</li>
+            For example, you can append your name to "node-todo", ie "ryan-node-todo".</li>
+          <li>Click "Create" to create your application</li>
         </ol>
         <a class="popup-link" href="http://www.youtube.com/watch?v=8RMsKhMxThE">Watch Demonstration</a>
       </div>
@@ -108,12 +108,15 @@
       <div class="slide-content">
         <ul>
           <li>
-            You will be brought to the application dashboard once the app is created.
+            You will be brought to the application dashboard once the app is created
           </li>
           <li>While your application is now created in Bluemix, it is not yet deployed.  Keep an eye on the status indicator in the upper right-hand corner, it will update as the application is deployed.</li>
           <li>
             After about 30 seconds your application should be up and running.
             Select the route to launch the app in your browser.
+          </li>
+          <li>
+            The application you see is what Bluemix deploys by default when you create an application from the Node.js runtime, we will replace this application with our ToDo app.
           </li>
         </ul>
         <a class="popup-link" href="https://www.youtube.com/watch?v=KRbfBrxob6Y">Watch Demonstration</a>
@@ -126,7 +129,7 @@
         <p>You should already have the Cloud Foundry Command Line Tools installed, if not go to the prerequisites slide and follow the link to the install instructions.</p>
         <ol>
           <li>Open a terminal window</li>
-          <li>Issue the cf login command
+          <li>Issue the cf login command below
 
             <div class="shell-wrap">
               <p class="shell-top-bar">/Users/bluemix/todos</p>
@@ -144,10 +147,7 @@
       <div class="header">Deploy The ToDo App</div>
       <div class="slide-content">
         <ol>
-          <li>Clone the GitHub repo here, or download the 
-            <a href="https://github.com/IBM-Bluemix/bluemix-workshops/archive/master.zip">zip</a> 
-            containing the code.  If you download the zip you will need to extract the code after the download completed.
-
+          <li>Clone the GitHub repo by issuing the below git clone command (you may also use a Git GUI client if you want)
             <div class="shell-wrap">
               <p class="shell-top-bar">/Users/bluemix/todos</p>
               <ul class="shell-body">
@@ -155,7 +155,11 @@
               </ul>
             </div>
           </li>
-          <li>In the terminal window and change your directory to the directory containing the ToDo code
+          <li>
+            If you don't have a Git client installed, you can download the source code as a
+            <a href="https://github.com/IBM-Bluemix/bluemix-workshops/archive/master.zip">zip file</a>.  If you download the zip you will need to extract the code after the download completes.
+          </li>
+          <li>In the terminal window, change your directory to the directory containing the ToDo code
             <div class="shell-wrap">
               <p class="shell-top-bar">/Users/bluemix/todos</p>
               <ul class="shell-body">
@@ -185,7 +189,7 @@
     <section class="slide">
       <div class="header">Not Working As Expected</div>
       <div class="slide-content">
-        <p>Open your browsers developer console and reload the page, you will notice there is an error.
+        <p>While our ToDo application successfully deployed to Bluemix you will notice that it is not functioning properly yet.  Open your browser's developer console and reload the page, you will notice there is an error.
           This is because the web application is making a request to a URL that does not exist yet.
         </p>
         <a class="popup-link" href="https://www.youtube.com/watch?v=qbYElNV467w">Watch Demonstration</a>
@@ -220,7 +224,7 @@
     </section>
 
     <section class="slide">
-      <div class="header">JSON Representation</div>
+      <div class="header">ToDo JSON Representation</div>
       <div class="slide-content">
         <p>The JSON representation of a ToDo looks like this</p>
         <script type="syntaxhighlighter" class="brush: js">
@@ -248,12 +252,26 @@
             This will bring you back to the Bluemix catalog.</li>
           <li>In the data management section of the catalog select the Cloudant service.</li>
           <li>In the service dialog give the service the name "todo-cloudant" and click "Create".</li>
-          <li>You will be asked to restage the application, click cancel for now.</li>
+          <li>You will be asked to restage the application, click "Cancel".</li>
           <li>You should now see a tile for Cloudant in your application dashboard,
             click the arrow next to the word "Credentials".  These are the credentials your application will use to access Cloudant.
           </li>
         </ol>
         <a class="popup-link" href="https://www.youtube.com/watch?v=PCUinXdEe9c">Watch Demonstration</a>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">More About Service Credentials</div>
+      <div class="slide-content">
+        <ul>
+          <li>The credentials for the Cloudant service is actually an important part of building applications on Bluemix</li>
+          <li>Every service you bind to an application in Bluemix will provide you with credentials</li>
+          <li>These credentials are made available to your application at runtime via an environment variable called VCAP_SERVICES</li>
+          <li>Applications running on Bluemix are expected to parse the JSON in the VCAP_SERVICES environment variable, extract the credentials for the services they need, and then use those credentials to make a connection to the service</li>
+          <li>This is such a common pattern that there have been libraries developed to make this process easier, we will use one of these libraries later on in the workshop</li>
+          <li>You can read more about VCAP_SERVICES <a href="https://www.ng.bluemix.net/docs/#cli/index.html#retrieving">here</a>
+        </ul>
       </div>
     </section>
 
@@ -383,7 +401,7 @@
         <p>In the code above we have required 2 new libraries, cfenv and cloudant.  We are also using the 
           optional library to load a file called cloudant.json.  cloudant.json will contain our Cloudant
           credentials and will be used when running locally.  We use appEnv.isLocal to figure out if we
-          are running locally and use appEnv.getService to access the Cloudant credentials when running
+          are running locally and use appEnv.getService passing our Cloudant service name to access the Cloudant credentials when running
           in Bluemix.
         </p>
       </div>
@@ -398,7 +416,7 @@
           </li>
           <li>
             Copy the credentials for the Cloudant service from your application dashboard in Bluemix
-            to a file called cloudant.json and save the file
+            to a file called cloudant.json and save the file to bluemix-workshops/todo/node/starter
           </li>
         </ul>
         <a class="popup-link" href="https://www.youtube.com/watch?v=L25u09v1H_g">Watch Demonstration</a>
@@ -418,7 +436,8 @@
             if(todoDb) {
               cb(undefined, todoDb);
             } else {
-              CloudantApis({account:cloudantService.credentials.username, password:cloudantService.credentials.password}, 
+              CloudantApis({account:cloudantService.credentials.username,
+               password:cloudantService.credentials.password}, 
                 function(err, cloudant) {
                   console.log('Logged into cloudant');
                   if(err) {
@@ -487,7 +506,7 @@
         </ul>
         <p>
           If your code worked you should see a message printed in your console saying that you logged
-          into Cloudant and the http server should start.
+          into Cloudant and the HTTP server should start.
         </p>
       </div>
     </section>
@@ -516,8 +535,8 @@
           });
         </script>
         <p>
-          This code uses the list API to get all documents from the DB.  It passes
-          the include_docs parameter to make sure we return the document body.  We
+          This code uses the <a href="https://github.com/cloudant/nodejs-cloudant#dblistparams-callback">list API</a> to get all documents from the DB.  It passes
+          the <a href="https://cloudant.com/for-developers/all_docs/">include_docs</a> parameter to make sure we return the document body.  We
           then map each row to match the JSON representation of a ToDo that the client
           expects and return that array.  Note, instead of doing this JSON mapping in
           the API implementation it could have, and probably should have, been done
@@ -545,7 +564,7 @@
           });
         </script>
         <p>
-          This code uses the insert API to insert the ToDo JSON from the POST body into the DB.
+          This code uses the <a href="https://github.com/cloudant/nodejs-cloudant#dbinsertdoc-doc_id-callback">insert API</a> to insert the ToDo JSON from the POST body into the DB.
           After the ToDo is inserted it adds the id and revision to the ToDo JSON and responds
           back to the client.
         </p>
@@ -578,8 +597,8 @@
           });
         </script>
         <p>
-          We first get the ToDo from the DB that is specified in the id path parameter, then
-          we update it with the data from the ToDo JSON from the PUT body.  Finally we insert the
+          We first <a href="https://github.com/cloudant/nodejs-cloudant#dbgetdoc_id-params-callback">get</a> the ToDo from the DB that is specified in the id path parameter, then
+          we update it with the data from the ToDo JSON from the PUT body.  Finally we <a href="https://github.com/cloudant/nodejs-cloudant#dbinsertdoc-doc_id-callback">insert</a> the
           ToDo back into the DB and return the JSON back to the client.
         </p>
       </div>
@@ -608,8 +627,8 @@
           });
         </script>
         <p>
-          We first get the ToDo from the DB with the ID that is specified in the path parameter.
-          Then we add the _deleted field to it and send it as a parameter to the bulk API.  The bulk
+          We first <a href="https://github.com/cloudant/nodejs-cloudant#dbgetdoc_id-params-callback">get</a> the ToDo from the DB with the ID that is specified in the path parameter.
+          Then we add the _deleted field to it and send it as a parameter to the <a href="https://github.com/cloudant/nodejs-cloudant#dbbulkdocs-params-callback">bulk API</a>.  The bulk
           API will then delete the ToDo from the DB.
         </p>
       </div>
@@ -620,7 +639,7 @@
       <div class="slide-content">
         <ul>
           <li>
-            We have implementations for all APIs at this point so lets try out the application, run the following command in your terminal window just like you did previously
+            We have implementations for all REST APIs at this point so lets try out the application.  Run the following command in your terminal window just like you did previously
             <div class="shell-wrap">
               <p class="shell-top-bar">/Users/bluemix/todos</p>
               <ul class="shell-body">
@@ -630,7 +649,7 @@
           </li>
           <li>
             Head to <a href="http://localhost:3000">http://localhost:3000</a> and you should be able
-            to add update and delete ToDos without any errors. 
+            to add update and delete ToDos without any errors
           </li>
           <li>
             You should be able to verify ToDos are being placed in the DB by going back to your Cloudant
@@ -646,14 +665,14 @@
       <div class="slide-content">
         <p>
           Create a new file called .cfignore.  If you are familiar with Git, this file acts just like .gitignore,
-          it specifies files and directories to ignore when deploying your application.  Add the following
+          it specifies files and directories to ignore when deploying your application to Bluemix.  Add the following
           lines to this file.
         </p>
         <script type="syntaxhighlighter" class="brush: text">
           /node-modules
           cloudant.json
         </script>
-        <p>Here we ignore the node-modules directory and the cloudant.json file.  We do not need to deploy the node-modules directory because the Node.js buildpack in Bluemix will download the dependencies for us as part of the deployment.  We don't need the cloudant.json file either since we will be using the VCAP_SERVICES environment variable to obtain the Cloudant credentials.</p>
+        <p>Here we ignore the node-modules directory and the cloudant.json file.  We do not need to deploy the node-modules directory because the Node.js buildpack in Bluemix will download the dependencies for us as part of the deployment.  We don&#39;t need the cloudant.json file either since we will be using the VCAP_SERVICES environment variable to obtain the Cloudant credentials.</p>
       </div>
     </section>
 
@@ -665,12 +684,12 @@
           <a href="https://www.ng.bluemix.net/docs/#manageapps/index-gentopic2.html#appmanifest">manifest file</a> to specify parameters for our deployment to 
           Bluemix.  Manifests make our cf push command simple and consistent 
           by taking all the parameters we would normally specify on the command line and putting them in a file.  Add the following code to a file
-          call manifest.yml.
+          call manifest.yml and save it to bluemix-workshops/todo/node/starter.
         </p>
         <script type="syntaxhighlighter" class="brush: text">
            ---
           applications:
-          - name: youAppName
+          - name: node-todo
             memory: 128M
             command: node app.js
             services:
@@ -687,7 +706,7 @@
       <div class="header">Deploying Working ToDo App</div>
       <div class="slide-content">
         <ul>
-          <li>We are ready to do our deployment, but wouldn't it be nice to see the logs of our application while
+          <li>We are ready to do our deployment, but wouldn&#39;t it be nice to see the logs of our application while
           we deploy the application?</li>
           <li>Open a new terminal window.  You should now have 2 terminals open.</li>
           <li>
@@ -699,8 +718,9 @@
               </ul>
            </div>
           </li>
+          <li>The cf logs command tails the log files of your application so you can see them right in your command prompt window.  This tool is very useful for debugging problems that might be occurring during deployment or during runtime.</li>
           <li>
-            In the other terminal window run the following command from the todo/node/starter
+            In the other terminal window run the following command from bluemix-workshops/todo/node/starter
             <div class="shell-wrap">
               <p class="shell-top-bar">/Users/bluemix/todos</p>
               <ul class="shell-body">
@@ -710,7 +730,7 @@
           </li>
         </ul>
         <p>
-          Notice we don't need to specify any parameters to cf push.  That is because it will automatically
+          Notice we don't need to specify any parameters to cf push like we did before.  That is because it will automatically
           look for, and use the manifest.yml file if it finds one.
           In about 30 seconds your deployment should finish and your application should be deployed.
           Head to your application URL and try it out.
