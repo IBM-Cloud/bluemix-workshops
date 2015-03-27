@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<!--
+ * Copyright IBM Corp. 2014
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=1024, user-scalable=no">
+
+  <title>Bluemix - Node-RED Workshop</title>
+
+  <!-- Required stylesheet -->
+  <link rel="stylesheet" media="screen" href="core/deck.core.css">
+
+  <!-- Extension CSS files go here. Remove or add as needed. -->
+  <link rel="stylesheet" media="screen" href="extensions/goto/deck.goto.css">
+  <link rel="stylesheet" media="screen" href="extensions/menu/deck.menu.css">
+  <link rel="stylesheet" media="screen" href="extensions/navigation/deck.navigation.css">
+  <link rel="stylesheet" media="screen" href="extensions/status/deck.status.css">
+  <link rel="stylesheet" media="screen" href="extensions/scale/deck.scale.css">
+
+  <!-- Style theme. More available in /themes/style/ or create your own. -->
+  <link rel="stylesheet" media="screen" href="themes/style/bluemix.css">
+
+  <!-- Transition theme. More available in /themes/transition/ or create your own. -->
+  <link rel="stylesheet" media="screen" href="themes/transition/horizontal-slide.css">
+
+  <!-- Basic black and white print styles -->
+  <link rel="stylesheet" media="print" href="core/print.css">
+
+  <link rel="stylesheet" href="magnific-popup.css">
+
+  <!-- Required Modernizr file -->
+  <script src="modernizr.custom.js"></script>
+</head>
+<body>
+  <div class="deck-container">
+
+    <!-- Begin slides. Just make elements with a class of slide. -->
+
+    <section class="slide header-footer-slide">
+      <div class="title">
+        <h1>Building IoT Apps With Node-RED</h1>
+        <h2>Ryan Baxter</h2>
+        <h2>@ryanjbaxter</h2>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Goals</div>
+      <div class="slide-content">
+        <p>In this workshop you will learn about the following:</p>
+        <ul>
+          <li>What is Node-RED and why should I use it?</li>
+          <li>How to I bring things from the internet into my app?</li>
+          <li>How do I connect devices to Node-RED?</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">What Is Node-RED?</div>
+      <div class="slide-content">
+        <ul>
+          <li>
+            "A visual tool for wiring the internet of things." - nodereg.org
+            <ul>
+              <li>
+                This can mean collecting data from sensors connected to the internet
+              </li>
+              <li>
+                Or it can mean using the wide range of APIs that are available on the
+                internet
+              </li>
+            </ul>
+          </li>
+          <li>Allows developers to visually construct flows by connecting "nodes"</li>
+          <li>Nodes represent common pieces of logic that perform certain operation for you to accomplish a task</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">The Node-RED Community</div>
+      <div class="slide-content">
+        <ul>
+          <li>
+            Node-RED is an open source project coming out of IBM's emerging technologies group
+            <ul>
+              <li>
+                It is written in Node.js
+              </li>
+              <li>
+                Can run on low-cost hardware or in the cloud
+              </li>
+            </ul>
+          </li>
+          <li>
+            The community around Node-RED is constantly evolving - there is a growing
+            number of Node-RED nodes being developed
+            <ul>
+              <li><a href="https://github.com/node-red/node-red-nodes" target="_blank">GitHub</a></li>
+              <li><a href="https://www.npmjs.com/search?q=node-red-node" target="_blank">NPM</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Installing Node-RED Locally</div>
+      <div class="slide-content">
+        <p>
+          To run Node-RED locally you must have Node.js and NPM installed.
+        </p>
+        <ol>
+          <li>Go to <a href="http://nodered.org" target="_blank">http://nodered.org/</a></li>
+          <li>Click the Download button on the home page to download the latest release</li>
+          <li>
+            Once downloaded, extract the zip file
+          </li>
+          <li>
+            In a terminal window navigate to the directory of the extracted zip file
+          </li>
+          <li>
+            Install the necessary dependencies by running npm install
+            <div class="shell-wrap">
+              <p class="shell-top-bar">/Users/johndoe/Downloads/node-red</p>
+              <ul class="shell-body">
+                <li>$ npm install --production</li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            Start node red by running the red.js script
+            <div class="shell-wrap">
+              <p class="shell-top-bar">/Users/johndoe/Downloads/node-red</p>
+              <ul class="shell-body">
+                <li>$ node red.js</li>
+              </ul>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Using A Hosted Version Of Node-RED</div>
+      <div class="slide-content">
+        <p>
+          Node-RED can easily be run on IBM Bluemix, IBM's platform-as-a-service,
+          using the <a href="https://www.ng.bluemix.net/docs/#starters/IoT/iot500.html#iot500" target="_blank">Internet of Things Starter</a> or the <a href="https://www.ng.bluemix.net/docs/#starters/Node-RED/nodered.html#nodered" target="_blank">Node-RED starter</a>.
+        </p>
+        <p>
+          For the purpose of this workshop I have already created several instances of Node-RED you can use.
+          To reserve your instance of Node-RED follow the steps below.
+        </p>
+        <ol>
+          <li>
+            Go to <a href="http://node-red-ws.mybluemix.net" target="_blank">http://node-red-ws.mybluemix.net</a>
+          </li>
+          <li>
+            Enter your first name, last name, email address, and click Reserve
+          </li>
+          <li>
+            Click the link to open your Node-RED instance.  Note the URL, you might want to save this somewhere
+            in the event you accidentally close the tab.
+          </li>
+        </ol>
+
+        <p>
+          After the workshop is over and you would like to continue to work with Node-RED you can follow
+          the steps below to get your own Bluemix account and create your own Node-RED instance.
+        </p>
+
+        <ol>
+          <li>
+            Go to <a href="http://bluemix.net" target="_blank">bluemix.net</a> and login.
+            If you have not registered you can sign up for a free 30 day trial.
+          </li>
+          <li>
+            Click the <a href="https://console.ng.bluemix.net/#/store" target="_blank">catalog link</a> 
+            in the header
+          </li>
+          <li>
+            Select either the Internet of Things Starter or the Node-RED starter.  The only
+            difference is the services that get bound to your application.
+          </li>
+          <li>
+            Give your application a name and a host name and click create
+          </li>
+          <li>
+            In about a minute Bluemix will finish provisioning the application and your 
+            app will be available at the host your picked.
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">The Node-RED Interface</div>
+      <div class="slide-content">
+        <ol>
+          <li>Open the provided URL in your browser</li>
+          <li>You will brought to the Node-RED landing page</li>
+          <li>
+            Click the button with the label "Go to your Node-RED flow editor"
+          </li>
+          <li>
+            When the flow editor opens you will see a sample flow in the sheet
+          </li>
+          <li>
+            You can add new sheets by clicking the plus (+) button to the left of the tabs
+          </li>
+          <li>
+            Sheets can be deleted by clicking the "hamburger" icon in the 
+            upper right hand corner, selecting Workspace, and then Delete
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Nodes</div>
+      <div class="slide-content">
+        <ul>
+          <li>
+            On the left hand side there is a list of nodes
+            divided into different categories
+            <ul>
+              <li>
+                Input - These nodes generally kick of your flows, this is where  data comes from
+              </li>
+              <li>
+                Output - These nodes usually end your flows, outputting the data
+              </li>
+              <li>
+                Function - These nodes can be used to manipulate the data as it travels through your flows
+              </li>
+              <li>
+                Social - Integrates social functionality into your flows
+              </li>
+              <li>
+                Storage - These nodes can be used to persist data
+              </li>
+              <li>
+                Analysis - Analyze data in the flows
+              </li>
+            </ul>            
+          </li>
+          <li>
+            You can select a node and view information about
+            what the node does and how to use it in the info
+            tab on the left
+          </li>
+          <li>
+            You can drag and drop any node onto a sheet
+          </li>
+          <li>
+            You can double click on any node on the sheet to open the 
+            configuration settings for the node
+          </li>
+          <li>
+            You connect two nodes by clicking the connector and dragging it 
+            to the connector of another node
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Passing Data Between Nodes</div>
+      <div class="slide-content">
+        <ul>
+          <li>
+            Data is passed between nodes using JSON objects, more specifically
+            in Node-RED the object is called 'msg'.
+          </li>
+          <li>
+            The msg object maintains its state throughout the entire flow
+          </li>
+          <li>
+            Most nodes will place data in a property of the msg object called "payload".
+            For example when you use the http request node the result of making the
+            request will be placed in msg.payload.
+          </li>
+          <li>
+            Nodes can and will overwrite previous values in the msg object, so if you need to save the value you will need to save it off to another
+            property of the msg object.  This is particularly important for the payload property.
+          </li>
+          <li>
+            Nodes may accept "parameters" via properties of the msg object.
+            For example to set the URL used in the http request node programmatically
+            you can set msg.url to any valid URL.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="slide header-footer-slide">
+      <div class="title">
+        <h1>Hello World</h1>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Node-RED Hello World</div>
+      <div class="slide-content">
+        <ol>
+          <li>
+            Create a new sheet in your Node-RED interface by clicking the 
+            plus (+) icon
+          </li>
+          <li>
+            From the pallet drag an Inject node from the input section onto
+            your sheet
+          </li>
+          <li>
+            Double click on the Inject node to open the configuration options
+          </li>
+          <li>
+            Under the Payload drop down select "string"
+          </li>
+          <li>
+            After selecting string a new text field will show up below the 
+            drop down, in the field enter the string <b>"hello world"</b>
+          </li>
+          <li>
+            Click Ok on the configuration options
+          </li>
+          <li>Drag a debug node from the output section to the sheet</li>
+          <li>Connect the input node and the debug node</li>
+          <li>Click Deploy to make the flow live</li>
+          <li>Select the debug tab in the sidebar on the right</li>
+          <li>
+            Click the tab on the inject node and you should see "hello world" printed to the debug tab
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Node-RED Hello World 2.0</div>
+      <div class="slide-content">
+        <ol>
+          <li>Remove the connection between the inject and debug nodes by 
+            selecting the connection and pressing the delete key</li>
+          <li>
+            Double click the inject node to open the configuration settings
+          </li>
+          <li>In the Payload drop down select blank</li>
+          <li>Click Ok to the configuration dialog</li>
+          <li>Drag a function node from the function section to the sheet</li>
+          <li>
+            Double click the function node to open the configuration 
+            settings
+          </li>
+          <li>
+            In the function dialog enter the following code, change the 
+            value of msg.name to your own name
+            <script type="syntaxhighlighter" class="brush: js">
+              msg.name="Ryan";
+              return msg;
+            </script>
+          </li>
+          <li>
+            Connect the inject node to the function node
+          </li>
+          <li>
+            Drag and drop a template node from the function section to the sheet
+          </li>
+          <li>
+            Double click the template node to open the configuration settings and enter the following template
+            <script type="syntaxhighlighter" class="brush: js">
+              hello {{name}}
+            </script>
+          </li>
+          <li>
+            Click Ok to the template configuration settings
+          </li>
+          <li>
+            Connect the function node to the template node and the template
+            node to the debug node
+          </li>
+          <li>
+            Click the Deploy button to make the changes to the flow live
+          </li>
+          <li>
+            Click the inject node to kick off the flow, you should see
+            "hello yourName" in the debug tab
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Node-RED Hello World 3.0</div>
+      <div class="slide-content">
+        <ol>
+          <li>
+            Delete the inject node and replace it with an http node from the input section
+          </li>
+          <li>
+            Double click on the http node to open the configuration settings
+          </li>
+          <li>
+            In the method drop down select GET
+          </li>
+          <li>
+            In the URL field enter <b>/hello</b>
+          </li>
+          <li>
+            Select Ok to close the http configuration settings
+          </li>
+          <li>
+            Connect the http node to the function node
+          </li>
+          <li>
+            Double click the function node to open the configuration settings and change the code to the following
+            <script type="syntaxhighlighter" class="brush: js">
+              msg.name = msg.req.query.name;
+              return msg;
+            </script>
+          </li>
+          <li>
+            Click Ok to close the configuration settings dialog
+          </li>
+          <li>
+            Delete the debug node from the flow
+          </li>
+          <li>
+            Add an http response node from the output section and connect it to the template node
+          </li>
+          <li>
+            Click the Deploy node to make the changes to the flow live
+          </li>
+          <li>
+            Open another browser tab and go to http://host.mybluemix.net/hello?name=John, replacing host with your Node-RED host name,
+            and you should see Hello John in your browser
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Mobilized Hello World</div>
+      <div class="slide-content">
+        <ol>
+          <li>
+            Drag and drop a twilio node from the output section onto the sheet
+          </li>
+          <li>
+            Double click the twilio node to open the configuration settings
+          </li>
+          <li>
+            In the Service drop down select the <b>twilio-dw</b> option
+          </li>
+          <li>
+            In the From field enter <b>+16179414658</b>
+          </li>
+          <li>
+            In the SMS To field enter your cell phone number beginning with +1
+            (assuming your phone number is US based)
+          </li>
+          <li>
+            Click Ok to close the configuration settings
+          </li>
+          <li>
+            Connect the template node to the Twilio node (there should now be 2 connections from the template node)
+          </li>
+          <li>Click Deploy to make the flow live</li>
+          <li>
+            Open another browser tab and go to http://host.mybluemix.net/hello?name=John, replacing host with your Node-RED host name,
+            and you should see Hello John in your browser and also get a text message to your phone with the text Hello John
+          </li>
+        </ol>
+
+      </div>
+    </section>
+
+    <section class="slide header-footer-slide">
+      <div class="title">
+        <h1>Using External APIs</h1>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Map Bart Stations</div>
+      <div class="slide-content">
+        <p>
+          In this example we will design a flow that lays out all the
+          <a href="http://www.bart.gov/schedules/developers/api" target="_blank">BART</a> stations on a Google map.
+        </p>
+        <p>
+          This example will involve using Websockets and the BART APIs.
+          <ul>
+            <li>Define a websocket endpoint in Node-RED</li>
+            <li>
+              When a request is made to the websocket we will make an
+              HTTP request to the BART APIs to get all the station information
+            </li>
+            <li>
+              We will take the response from the API and return it to the
+              websocket
+            </li>
+            <li>
+              In a separate flow we will create an HTTP endpoint that replies
+              with some HTML, JavaScript, and CSS to render a Google Map
+            </li>
+            <li>
+              When the page renders a request will be sent to the websocket to get the station information
+            </li>
+            <li>
+              When the page gets the station information it will add markers
+              on the Google map at the location of each station
+            </li>
+          </ul>
+        </p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Build WebSocket Flow</div>
+      <div class="slide-content">
+        <ol>
+          <li>Create a new sheet in Node-RED by clicking the plus(+) icon</li>
+          <li>Drag a websocket input node to the sheet</li>
+          <li>
+            Double click the websocket node to open the configuration settings
+          </li>
+          <li>
+            In the Path drop down of the configuration settings select 
+            Add new websocket-listener and click the pencil next to the 
+            drop down field
+          </li>
+          <li>
+            In the websocket-listener configuration dialog enter the Path
+            <b>/ws/stations</b> and make sure <b>Send/Receive payload</b> is 
+            selected in the drop down
+          </li>
+          <li>Click Ok to the websocket-listener configuration dialog</li>
+          <li>Click Ok to the websocket node configuration dialog</li>
+          <li>
+            Drag and drop the http request node from the function section
+          </li>
+          <li>
+            Double click the http request node to open the configuration 
+            settings
+          </li>
+          <li>
+            In the Method drop down select GET
+          </li>
+          <li>
+            In the URL field put this URL <b>http://api.bart.gov/api/stn.aspx?cmd=stns&key=MW9S-E7SL-26DU-VV8V</b>
+          </li>
+          <li>
+            Click Ok to close the configuration settings dialog for the http request node
+          </li>
+          <li>
+            Connect the websocket node to the http request node
+          </li>
+          <li>
+            Drag and drop an xml function node to the sheet
+          </li>
+          <li>
+            Connect the http request node to the xml node, this will convert the
+            XML response from the BART APIs to JSON
+          </li>
+          <li>
+            Drag and drop a websocket output node onto the sheet
+          </li>
+          <li>
+            Double click the websocket node to open the configuration settings
+          </li>
+          <li>
+            In the Path drop down of the websocket node select <b>/ws/stations</b>
+          </li>
+          <li>
+            Click Ok to close the websock configuration settings
+          </li>
+          <li>
+            Connect the websocket node to the xml node
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Build The HTTP Flow</div>
+      <div class="slide-content">
+        <ol>
+          <li>
+            Drag and drop an http input node onto the sheet
+          </li>
+          <li>
+            Double click the http node to open the configuration settings
+          </li>
+          <li>
+            In the Method drop down select <b>GET</b>
+          </li>
+          <li>
+            In the url field enter <b>/mapstations</b>
+          </li>
+          <li>
+            Click Ok to close the configuration settings
+          </li>
+          <li>
+            Drag and drop a template node from the function section
+          </li>
+          <li>
+            Double click the template node to open the configuration settings
+          </li>
+          <li>
+            <a href="mapstations.html" download="mapstations.html"> Download this HTML file</a> and add its contents to the template node
+          </li>
+          <li>
+            Click Ok to close the template node configuration settings
+          </li>
+          <li>
+            Connect the http node to the template node
+          </li>
+          <li>
+            Drag and drop an http response node from the output section to the sheet
+          </li>
+          <li>
+            Connect the template node to the http response node
+          </li>
+          <li>
+            Click the Deploy button to make the flow live
+          </li>
+          <li>
+            Open a browser and go to http://host.mybluemix.net/mapstations 
+            and you should see a Google map with markers for all the BART
+            stations
+          </li>
+        </ol>
+        
+      </div>
+    </section>
+
+    <section class="slide header-footer-slide">
+      <div class="title">
+        <h1>Using Data From Devices</h1>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Connecting Data From Devices</div>
+      <div class="slide-content">
+        <ul>
+          <li>
+            It is very popular to collect data from sensors on low cost hardware
+          </li>
+          <li>
+            Node-RED makes can make it very easy to collect this data and process it
+            <ul>
+              <li>
+                You can run Node-RED can run on the hardware itself (only requires Node)
+                and read data from I/O pins, over Bluetooth, and from the network
+              </li>
+              <li>
+                Collect data using whatever languages or frameworks you would like and use
+                a protocol like MQTT to transmit to a Node-RED instance running somewhere else
+              </li>
+            </ul>
+          </li>
+
+        </ul>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Scenario</div>
+      <div class="slide-content">
+        <p>
+          We want to build a fitness tracking app that will run on an iPhone.  In addition
+          to the iPhone app there will also we a web app for users to view and replay
+          past fitness activities.
+          <ul>
+            <li>
+              We will use a Mio Alpha heart rate monitor watch to measure the heart rate of a
+              user
+            </li>
+            <li>
+              The watch will connect to the phone over Bluetooth
+            </li>
+            <li>
+              The app on the phone will receive the heart rate data and add things like
+              GPS, speed, and latitude
+            </li>
+            <li>
+              The phone will then take the data and transmit to an MQTT broker
+            </li>
+            <li>
+              Our Node-RED app will receive the data from the MQTT broker and save it in a
+              Mongo DB
+            </li>
+            <li>
+              We will then create APIs for client apps to access this data
+            </li>
+          </ul>
+        <p>
+          We will connect a watch measuring heart rate data to an iPhone.  The iPhone will
+          add GPS data, speed, altitude, user, etc
+        </p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Connect To An MQTT Broker</div>
+      <div class="slide-content">
+        <p>
+          We will use an IBM Cloud based MQTT broker called the 
+          <a href="https://internetofthings.ibmcloud.com/" target="_blank">IBM IoT Foundation</a>.
+          Note: We could use the IBM IoT node and simplify things but for the sake of
+          demonstration we will use the generic MQTT node instead.
+        </p>
+        <ol>
+          <li>
+            Drag and drop an mqtt node from the input section onto the sheet
+          </li>
+          <li>
+            Double click the mqtt node to open the configuration settings
+          </li>
+          <li>
+            Next to the Broker drop down click the pencil icon to open the broken settings
+          </li>
+          <li>
+            In the Broker address enter <b>dp21ga.messaging.internetofthings.ibmcloud.com</b> 
+            and <b>1883</b> for the Port
+          </li>
+          <li>
+            For the Client ID enter <b>a:dp21ga:yourfullname</b>, replacing yourfillname with your full name without spaces, for example a:dp21ga:ryanbaxter
+          </li>
+          <li>
+            In the Username field enter <b>a-dp21ga-n4lwoo3tq0</b>
+          </li>
+          <li>
+            In the Password field enter <b>YoNWXk_WU*WT4&amp;hncs</b>
+          </li>
+          <li>
+            Click Add to save the broker settings and close the dialog
+          </li>
+          <li>
+            Back in the mqtt configuration settings dialog select the broker we just added
+            in the Broker drop down field
+          </li>
+          <li>
+            In the topic field enter <b>iot-2/type/+/id/+/evt/+/fmt/+</b>
+          </li>
+          <li>
+            Click Ok to save the mqtt configuration settings
+          </li>
+        </ol>
+      </div>
+    </section>   
+
+    <section class="slide">
+      <div class="header">Cleanup The Data</div>
+      <div class="slide-content">
+        <p>
+          The data we get from the broker will be a JSON string and will have a
+          property called "d" in it that doesn't serve any value.  We will 
+          convert the message to JSON and then remove the "d" property.
+        </p>
+        <ol>
+          <li>
+            Add a json node to the sheet and connect it to the mqtt node.
+            This will convert the string to a JSON object.
+          </li>
+          <li>
+            Add a function node to the sheet and connect it to the JSON node
+          </li>
+          <li>
+            Double click the function node to open the configuration settings.
+            Add the following code
+            <script type="syntaxhighlighter" class="brush: js">
+              msg.payload = msg.payload.d;
+              return msg;
+            </script>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Augmenting The Data</div>
+      <div class="slide-content">
+        <p>
+          The data we get from the mqtt broker about the fitness activity can be
+          categorized into three different events.
+          <ul>
+            <li>A start event for when a user starts a fitness activity</li>
+            <li>An end event for when a user ends a fitness activity</li>
+            <li>A data point representing data while the fitness activity is taking place</li>
+          </ul>
+        </p>
+        <p>
+          Users might find information about the current temperature to be useful
+          when performing a fitness activity.  In order to get this information
+          we will use the <a href="https://developer.forecast.io/" target="_blank">forcast.io APIs</a> and the GPS data from the mqtt data to
+          get the current temperature.  We will only do this when a start or end
+          event occurs.
+        </p>
+        <ol>
+          <li>
+            We need to know what type of event we are processing in the flow.
+            A switch node allows us to add some logic to our flows and is perfect for what
+            we need.
+            Drag and drop a switch node from the function section to the sheet
+            and connect it to the function node.
+          </li>
+          <li>
+            Double click the switch node to open the configuration settings
+          </li>
+          <li>
+            In the "If msg." field enter <b>payload.label</b>
+          </li>
+          <li>
+            We will have three conditions we want to test for, by default the switch 
+            statement only has one condition, click the <b>+Add</b> button twice to add 
+            two more
+          </li>
+          <li>
+            In the first conditional field make sure the operator drop down is set to 
+            <b>==</b>
+            and enter the string <b>"start_trip"</b> in field
+          </li>
+          <li>
+            In the second conditional field make sure the operator drop down is set to 
+            <b>==</b>
+            and enter the string <b>"end_trip"</b> in the field
+          </li>
+          <li>
+            In the third conditional field make sure the operator drop down is set to 
+            <b>"otherwise"</b>
+          </li>
+          <li>
+            Click Ok to close the configuration settings dialog
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Setting Up The HTTP Request To Forcast.io</div>
+      <div class="slide-content">
+        <p>
+          You can make requests to 
+          <a href="https://developer.forecast.io/" target="_blank">forcast.io</a> to get weather data with GPS coordinates.
+          We will use the GPS coordinates from the start or end event to get the weather
+          for the start and end locations.
+        </p>
+        <ol>
+          <li>
+            Add a function node to the sheet
+          </li>
+          <li>
+            Double click the function node to open the configuration settings
+          </li>
+          <li>
+            Copy and paste the following code into the function nodes configuration settings
+            <script type="syntaxhighlighter" class="brush: js">
+              var apiKey = "55626dd518b1f182027333f557aef75a";
+              var urlBase = "https://api.forecast.io/forecast";
+              // Store route data
+              var data = msg.payload;
+              msg.data = data;
+              msg.payload = null;
+              // Prepare forecast.io request
+              msg.url = urlBase + "/" + apiKey + "/" + data.latitude + "," + data.longitude; 
+              return msg;
+            </script>
+          </li>
+          <li>
+            In the above code we are just setting up the correct URL for the request to
+            forcast.io by extracting the latitude and longitude from the payload that
+            we got from the MQTT broker and adding it to the URL.  You will also notice that we take the current payload and set it to msg.data, that is because msg.payload will be set to the result of the HTTP request to forcast.io and we will loose that data if we don't copy it out of the payload variable.
+          </li>
+          <li>
+            Click Ok to the configuration settings dialog
+          </li>
+          <li>
+            Connect the function node to the first two outputs of the switch node
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">HTTP Request To Forcast.io</div>
+      <div class="slide-content">
+        <ol>
+          <li>
+            Add an http request node from the function section to the sheet and connect it
+            to the function node
+          </li>
+          <li>
+            We don't need to modify the configuration of the http request node like we had
+            to in previous examples because the http request node will use the msg.url
+            value we set in the previous function node.
+          </li>
+          <li>
+            Add a json node from the function section after the http request node to 
+            convert the response from focast.io to a JSON object
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Add The Temperature To The Broker Data</div>
+      <div class="slide-content">
+        <p>
+          We now have the forecast data for the GPS coordinates from the start or end event
+          and we can now add the temperature data from the MQTT broker.
+        </p>
+        <ol>
+          <li>
+            Drag and drop a function node to the sheet.
+          </li>
+          <li>
+            Double click the function node to open the configuration settings and add
+            the following code
+            <script type="syntaxhighlighter" class="brush: js">
+              msg.data.temp = msg.payload.currently.temperature;
+              msg.payload = msg.data;
+              return msg;
+            </script>
+          </li>
+          <li>
+            Here we are getting the current temperature from the response from forcast.io
+            and adding it to the data from the MQTT broker.  Finally we set the data
+            from the MQTT broker back to msg.payload and return msg.
+          </li>
+          <li>Connect the function node to the json node</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Store Data In A Mongo DB</div>
+      <div class="slide-content">
+        <p>
+          We have the data we need, lets persist it to a Mongo DB so it can be
+          retrieved later on by our APIs.
+        </p>
+        <ol>
+          <li>
+            Drag and drop a mongodb output node from the storage section.  There are
+            two Mongo DB nodes in the storage section, one to query the DB and the other
+            to store data in the DB.  The one to store data in the database will only
+            have an input connector.
+          </li>
+          <li>
+            Connect the function node to the mongodb node in order to persist the 
+            start and end events with temperature data to the database.
+          </li>
+          <li>
+            Connect the third output of the switch statement to the mongodb node as well.
+            This will persist the data points of the fitness activity to the database.
+          </li>
+          <li>
+            Double click the the mongodb node to open the configuration settings
+          </li>
+          <li>
+            In the Service drop down select the option that begins with <b>"mongoLab-"</b>.
+            There will be a number after the dash, but it will be different for everyone.
+          </li>
+          <li>
+            In the collection field enter <b>"fitness"</b>
+          </li>
+          <li>
+            In the operation drop down select <b>"save"</b>
+          </li>
+          <li>
+            Make sure the option to "Only store msg.payload object?" is checked.
+          </li>
+          <li>
+            Click Ok to save the mongodb nodes configuration settings
+          </li>
+          <li>
+            Data from the MQTT broker should now be persisted in our Mongo database
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Creating REST APIs</div>
+      <div class="slide-content">
+        <p>
+          Now that we have the data from our fitness app being persisted to a database
+          we need to create some APIs so applications can access the data and build UIs
+          ontop of it.  The two most important APIs we can provide are
+          <ul>
+            <li>
+              An API to get each fitness activity
+            </li>
+            <li>
+              An API when given an id of a given fitness activity will return all the data
+              points for that fitness activity
+            </li>
+          </ul>
+        </p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Activities API</div>
+      <div class="slide-content">
+        <ol>
+          <li>
+            Create a new sheet for the APIs by clicking the plus icon in the upper
+            left hand corner of the sheet
+          </li>
+          <li>
+            Drag an drop an http node from the input section onto the sheet
+          </li>
+          <li>
+            Double click the http node to open the configuration settings
+          </li>
+          <li>
+            In the Method drop down make sure GET is selected
+          </li>
+          <li>
+            In the url field enter <b>/activities</b>
+          </li>
+          <li>
+            Click Ok to close the configuration settings
+          </li>
+          <li>
+            Drag and drop a function node to the sheet
+          </li>
+          <li>
+            Double click the function node to open the configuration settings
+          </li>
+          <li>
+            Paste the following code into the function editor
+            <script type="syntaxhighlighter" class="brush: js">
+              msg.payload = {"label" : "start_trip"};
+              return msg;
+            </script>
+            This code is setting up the Mongo DB <a href="http://docs.mongodb.org/manual/reference/method/db.collection.find/" target="_blank">find query</a> we will use to find
+            all records that are a start event
+          </li>
+          <li>
+            Connect the function node to the http node
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Querying Mongo</div>
+      <div class="slide-content">
+        <ol>
+          <li>
+            Drag and drop a mongodb query node onto the sheet (the one with 
+            both an input and output connection)
+          </li>
+          <li>
+            Connect the function node to the mongodb node
+          </li>
+          <li>
+            Double click the mongodb node to open the configuration settings
+          </li>
+          <li>
+            In the Service drop down select the option that begins with <b>"mongoLab-"</b>.
+            There will be a number after the dash but it will be different for everyone.
+          </li>
+          <li>
+            In the collection field enter <b>"fitness"</b>
+          </li>
+          <li>
+            In the operation field select <b>"find"</b>
+          </li>
+          <li>
+            Click Ok to close the configuration settings dialog
+          </li>
+          <li>
+            Drag and drop an http response node from the output section to the sheet
+          </li>
+          <li>
+            Connect the http response node to the mongodb node
+          </li>
+          <li>
+            Click the Deploy button to make the flow live
+          </li>
+          <li>
+            Open a browser and hit http://node-red-host.mybluemix.net/activities
+            replacing node-red-host with your host name.  You should see a JSON
+            array with all the separate fitness activities listed.
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Data Points API</div>
+      <div class="slide-content">
+        <p>
+          Now that clients can see all fitness activities they will want to get
+          the data points for an individual fitness activity.
+        </p>
+        <ol>
+          <li>
+            In the same sheet, drag and drop an http node from the input section
+            to the sheet
+          </li>
+          <li>
+            Double click the http node to open the configuration settings
+          </li>
+          <li>
+            In the Method drop down select <b>GET</b>
+          </li>
+          <li>
+            In the url field enter <b>/activities/:user/:tripname</b>.  
+            The :user and :tripname in the URL represent path variables.  
+            This syntax is similar to how you define 
+            <a href="http://expressjs.com/4x/api.html#request" target="_blank">path variables in Express</a>.
+            The user variable will be the user whose activities you want to get data
+            points for and the tripname will be the tripName value you want to get the
+            data points for. 
+          </li>
+          <li>
+            Click Ok to close the configuration settings dialog
+          </li>
+          <li>
+            Drag and drop a function node to the sheet and connect it to the http node
+          </li>
+          <li>
+            Double click the function node to open the configuration settings
+          </li>
+          <li>
+            Copy and paste the following code into the function node's code editor
+            <script type="syntaxhighlighter" class="brush: js">
+              msg.payload = {
+                "tripName" : msg.req.params.tripname,
+                "userId" : msg.req.params.user
+              };
+              return msg;
+            </script>
+          </li>
+          <li>
+            Click Ok to close the configuration settings
+          </li>
+          <li>
+            Connect the function node to http node and also connect it to the existing
+            mongodb node
+          </li>
+          <li>
+            Click Deploy to make the flow live
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Test The APIs</div>
+      <div class="slide-content">
+        <p>
+          In a browser tab go to http://node-red-host.mybluemix.net/activities
+            to see all activities.  Pick one and copy the userId value and the tripName
+            value.  Open another browser window and go to http://node-red-host.mybluemix.net/activities/userId/tripName replacing userId and tripName with the values
+            from the activity you chose.  You should see an array of all the data points
+            for that activity.
+        </p>
+      </div>
+    </section>
+
+    <section class="slide header-footer-slide">
+      <div class="title center">
+        <h1>THANK YOU!</h1>
+        <h2>http://bluemix.net</h2>
+      </div>
+    </section>
+
+    <!-- End slides. -->
+
+    <!-- Begin extension snippets. Add or remove as needed. -->
+
+    <!-- deck.navigation snippet -->
+    <div aria-role="navigation">
+      <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+      <a href="#" class="deck-next-link" title="Next">&#8594;</a>
+    </div>
+
+    <!-- deck.status snippet -->
+    <p class="deck-status" aria-role="status">
+      <span class="deck-status-current"></span>
+      /
+      <span class="deck-status-total"></span>
+    </p>
+
+    <div class="logo">
+      <img src="themes/style/BluemixLogo.png" height="40px" width="40px" />
+      <span class="hashtag">#Bluemix<span>
+    </div>
+
+    <!-- deck.goto snippet -->
+    <form action="." method="get" class="goto-form">
+      <label for="goto-slide">Go to slide:</label>
+      <input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
+      <datalist id="goto-datalist"></datalist>
+      <input type="submit" value="Go">
+    </form>
+
+    <!-- End extension snippets. -->
+  </div>
+
+<!-- Required JS files. -->
+<script src="jquery.min.js"></script>
+<script src="core/deck.core.js"></script>
+
+<!-- Extension JS files. Add or remove as needed. -->
+<script src="extensions/menu/deck.menu.js"></script>
+<script src="extensions/goto/deck.goto.js"></script>
+<script src="extensions/status/deck.status.js"></script>
+<script src="extensions/navigation/deck.navigation.js"></script>
+<script src="extensions/scale/deck.scale.js"></script>
+<script src="extensions/syntaxhighlighter/deck.syntaxhighlighter.js"></script>
+<script src="jquery.magnific-popup.min.js"></script>
+
+<!-- Initialize the deck. You can put this in an external file if desired. -->
+<script>
+  $(function() {
+    $.deck('.slide');
+  });
+
+  $(document).ready(function() {
+    $('.popup-link').magnificPopup({ 
+      type: 'iframe',
+      iframe: {
+        markup: '<div class="mfp-iframe-scaler">'+
+                '<div class="mfp-close"></div>'+
+                '<iframe class="mfp-iframe" frameborder="0" allowfullscreen></iframe>'+
+                '</div>', // HTML markup of popup, `mfp-close` will be replaced by the close button
+
+        patterns: {
+          youtube: {
+            index: 'youtube.com/', // String that detects type of video (in this case YouTube). Simply via url.indexOf(index).
+
+            id: 'v=', // String that splits URL in a two parts, second part should be %id%
+            // Or null - full URL will be returned
+            // Or a function that should return %id%, for example:
+            // id: function(url) { return 'parsed id'; } 
+
+            src: 'http://www.youtube.com/embed/%id%?autoplay=1' // URL that will be set as a source for iframe. 
+          },
+          vimeo: {
+            index: 'vimeo.com/',
+            id: '/',
+            src: '//player.vimeo.com/video/%id%?autoplay=1'
+          },
+          gmaps: {
+            index: '//maps.google.',
+            src: '%id%&output=embed'
+          }
+        },
+
+        srcAction: 'iframe_src', // Templating object key. First part defines CSS selector, second attribute. "iframe_src" means: find "iframe" and set attribute "src".
+      }
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Bart Stations</title>
+    <style>
+      html, body, #map-canvas {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
+      }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+    <script>
+		function initialize() {
+		  var myLatlng = new google.maps.LatLng(37.765062,-122.419694);
+		  var mapOptions = {
+		    zoom: 10,
+		    center: myLatlng
+		  };
+		  var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+		  
+		  var loc = window.location;
+          if (loc.protocol === "https:") {
+            newUri = "wss:";
+          } else {
+            newUri = "ws:";
+          }
+          newUri += "//" + loc.host + "/ws/stations";
+		  
+		  
+		  var sock = new WebSocket(newUri);
+		  sock.onopen = function(){ 
+		    console.log("Connected websocket");
+		    console.log("Sending ping..");
+			sock.send("Ping!");
+		    console.log("Ping sent..");
+		  };
+		  sock.onerror = function(){ console.log("Websocket error"); };
+		  sock.onmessage = function(evt){
+		    var stationData = JSON.parse(evt.data);
+		    var stations = stationData.root.stations[0].station;
+			for(var i = 0; i < stations.length; i++) {
+			  var station = stations[i];
+              var marker = new google.maps.Marker({
+			    position: new google.maps.LatLng(station.gtfs_latitude[0],station.gtfs_longitude[0]),
+			    map: map,
+			    animation: google.maps.Animation.DROP,
+			    title: station.name[0]
+			  });
+			  
+			}
+		  };
+		};
+		
+		google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
+  </head>
+  <body>
+    <div id="map-canvas"></div>
+  </body>
+</html>
