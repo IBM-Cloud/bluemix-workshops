@@ -79,7 +79,7 @@
       <div class="slide-content">
         <p>Here are a list of prerequisites you will need in order to complete this workshop.</p>
         <ul>
-          <li><a target="_blank" href="https://www.eclipse.org/downloads/packages/eclipse-ide-java-ee-developers/lunasr1">Eclipse Luna for Java EE Developers</a></li>
+          <li><a target="_blank" href="https://www.eclipse.org/downloads/packages/eclipse-ide-java-ee-developers/lunasr2">Eclipse Luna for Java EE Developers</a></li>
           <li><a target="_blank" href="https://developer.ibm.com/wasdev/downloads/liberty-profile-using-eclipse/">IBM Websphere Application Server Runtime For Eclipse</a> (<a class="popup-link" href="https://www.youtube.com/watch?v=H1UETm_jn2g">Watch Demonstration</a>)</li> 
           <li><a target="_blank" href="https://www.ng.bluemix.net/docs/#starters/BuildingWeb.html#install_cf">Cloud Foundry Command Line Tools</a></li>
           <li><a target="_blank" href="https://apps.admin.ibmcloud.com/manage/trial/bluemix.html">IBM Bluemix Account</a></li>
@@ -93,13 +93,16 @@
         <ul>
           <li>Open the Servers view in Eclipse</li>
           <li>Right click in the view and select New -> Server</li>
-          <li>In the New Server dialog expland the IBM folder and select Websphere Application Server Liberty Profile and click Next</li>
-          <li>Click the download or install link in the New Server dialog to download the Liberty Profile beta</li>
-          <li>In the Install Runtime Environment dialog select the Downlaod and install option.  Make sure the Liberty Repository is selected in the dropdown.  Once the runtime options are loaded select Liberty Profile Beta Runtime. Click Next.</li>
-          <li>In the Install Add-ons dialog select the Liberty Profile Beta Extended Package and click Install.  Click Next.</li>
-          <li>Accept the license.  Click Finish.  Eclipse will now download and install the runtime.</li>
-          <li>Once the download finishes you will be brought back to the New Server dialog</li>
-          <li>Accept the defaults on the rest of the prompts in the wizard</li>
+          <li>In the New Server dialog select the Install from an archive or repository option</li>
+          <li>Select Next</li>
+          <li>In the New Server dialog select a destination to install the Liberty runtime, you can pick any folder you would like</li>
+          <li>Select the Download and install a new runtime environment from ibm.com option</li>
+          <li>Make sure the Liberty Repository is selected, and select Liberty v9 Beta with Java EE 7 Runtime. Click Next.</li>
+          <li>From the add-ons list, click the Install button next to the Liberty Profile Beta Extended Package. Click Next.</li>
+          <li>Select I accept the terms of all the license agreements. Click Next.</li>
+          <li>In the New Liberty Profile Server dialog, leave the defaults and click Next.</li>
+          <li>In the Add and Remove dialog select Finish</li>
+          <li>Once the download finishes you will see a dialog telling you it was successful, click OK.</li>
         </ul>
         <a class="popup-link" href="https://www.youtube.com/watch?v=PNdTuhGamWI">Watch Demonstration</a>
       </div>
@@ -127,7 +130,8 @@
       <div class="slide-content">
         <ul>
           <li>
-            You will be brought to the application dashboard once the app is created.
+            You will be brought to the Start Coding screen once the app is created.  Click the Overview
+            link in the left-hand navigator to go to the application dashboard.
           </li>
           <li>While your application is now created in Bluemix, it is not yet deployed.  Keep an eye on the status indicator in the upper right-hand corner, it will update as the application goes through the deployment process.</li>
           <li>
@@ -174,7 +178,7 @@
             </div>
           </li>
           <li>If you don't have a Git client installed, you can download the source code as a zip file. If you download the zip you will need to extract the code after the download completes.</li>
-          <li>In Eclipse go to File -> Import -> General -> Existing Project into Workspace</li>
+          <li>In Eclipse go to File -> Import -> Maven -> Existing Maven Projects</li>
           <li>In the resulting dialog navigate to bluemix-workshops/todo/java/starter and click OK.</li>
           <li>You should now see the CloudantToDos project listed inside the import dialog, click "Finish" to import the project into your workspace.</li>
         </ol>
@@ -188,11 +192,12 @@
       <div class="slide-content">
         <ol>
           <li>In Eclipse, expand the CloudantToDos project</li>
-          <li>Right click on the build.xml file and select Run As -> Ant Build...</li>
-          <li>In the resulting dialog, click "Run"</li>
+          <li>Right click on the pom.xml file and select Run As -> Maven Build...</li>
+          <li>In the Goals field in the Configuration dialog enter package
+          <li>In the configuration dialog, click "Run"</li>
           <li>The Console view in Eclipse should open and the build should complete successfully</li>
           <li>Right click on the CloudantToDos project in Eclipse and select "Refresh"</li>
-          <li>You should now see a new file in the project called ToDoCloudant.war</li>
+          <li>You should now see a new file in the target folder in the project called CloudantToDos-0.0.1-SNAPSHOT.war</li>
         </ol>
         <a class="popup-link" href="https://www.youtube.com/watch?v=wKegmEGrxq4">Watch Demonstration</a>
       </div>
@@ -204,11 +209,11 @@
       <div class="header">Deploy The ToDo App</div>
       <div class="slide-content">
         <ol>
-          <li>Open a terminal window and change your directory to the directory containing the ToDo code
+          <li>Open a terminal window and change your directory to the target directory of the ToDo app
             <div class="shell-wrap">
               <p class="shell-top-bar">/Users/bluemix/todos</p>
               <ul class="shell-body">
-                <li>$ cd bluemix-workshops/todo/java/starter/CloudantToDo</li>
+                <li>$ cd bluemix-workshops/todo/java/starter/CloudantToDos/target</li>
               </ul>
             </div>
           </li>
@@ -217,7 +222,7 @@
             <div class="shell-wrap">
               <p class="shell-top-bar">/Users/bluemix/todos</p>
               <ul class="shell-body">
-                <li>$ cf push java-todo -p ToDoCloudant.war</li>
+                <li>$ cf push java-todo -p CloudantToDos-0.0.1-SNAPSHOT.war -m 512M</li>
               </ul>
             </div>
           </li>
@@ -293,13 +298,13 @@
           Cloudant.
         </p>
         <ol>
-          <li>From the application dashboard in Bluemix select the "Add A Service" button.
+          <li>From the application dashboard in Bluemix select the "Add A Service or API" button.
             This will bring you back to the Bluemix catalog.</li>
-          <li>In the data management section of the catalog select the Cloudant service.</li>
+          <li>In the data management section of the catalog select the Cloudant NoSQL service.</li>
           <li>In the service dialog give the service the name "todo-cloudant" and click "Create".</li>
           <li>You will be asked to restage the application, click cancel for now.</li>
           <li>You should now see a tile for Cloudant in your application dashboard,
-            click the arrow next to the word "Credentials".  These are the credentials your application will use to access Cloudant.
+            click the arrow next to the words "Show Credentials".  These are the credentials your application will use to access Cloudant.
           </li>
         </ol>
         <a class="popup-link" href="https://www.youtube.com/watch?v=axxrIB6HnmI">Watch Demonstration</a>
@@ -442,12 +447,10 @@
           <li>Copy the following code into the resulting class file
             <script type="syntaxhighlighter" class="brush: java">
               package net.bluemix.todos;
-              import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-              import com.fasterxml.jackson.annotation.JsonInclude;
-              import com.fasterxml.jackson.annotation.JsonInclude.Include;
-              import com.fasterxml.jackson.annotation.JsonProperty;
-
-              @JsonInclude(Include.NON_NULL)
+              import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+              import org.codehaus.jackson.annotate.JsonProperty;
+              import org.codehaus.jackson.map.annotate.JsonSerialize;
+              @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
               @JsonIgnoreProperties({"id", "revision"})
               public class ToDo {
                 @JsonProperty("_id")
@@ -478,6 +481,58 @@
     </section>
 
     <section class="slide">
+      <div class="header">Persisting Data To Cloudant</div>
+      <div class="slide-content">
+        <ul>
+          <li>Cloudant is based upon Apache Couch DB and therefore conforms to all the Couch DB
+            REST APIs</li>
+          <li>This means we can use open source Couch DB client libraries to persist data to 
+            Cloudant</li>
+          <li>In this example we will use the Ektorp Couch DB client libraries for Java</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Bluemix Cloud Connectors</div>
+      <div class="slide-content">
+        <ul>
+          <li>One of the problems we face is that in Bluemix our Cloudant credentials are
+            made available to our application at runtime via the VCAP_SERVICES environment
+            variable, yet that environment variable is not set locally</li>
+          <li>We could come up with some logic in our code to detect if the environment variable
+            is set and do something different when it is not locally...or we could set it locally...
+            but this gets messy</li>
+          <li>Ideally we would write some code that would work locally and in Bluemix</li>
+          <li>The <a href="https://github.com/IBM-Bluemix/bluemix-cloud-connectors" target="_blank">Bluemix Cloud Connectors project</a> does exactly this</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Add The Bluemix Cloud Connectors Dependencies</div>
+      <div class="slide-content">
+        <ul>
+          <li>Open the pom.xml file from the CloudantToDos project in Eclipse</li>
+          <li>Add the following dependencies to the dependencies section within the POM file and
+            save the file</li>
+        </ul>
+        <script type="syntaxhighlighter" class="brush: xml">
+            &lt;dependency&gt;
+              &lt;groupId&gt;net.bluemix&lt;/groupId&gt;
+              &lt;artifactId&gt;bluemix-cloud-connectors-local&lt;/artifactId&gt;
+              &lt;version&gt;0.0.1.RC2&lt;/version&gt;
+            &lt;/dependency&gt;
+            &lt;dependency&gt;
+              &lt;groupId&gt;net.bluemix&lt;/groupId&gt;
+              &lt;artifactId&gt;bluemix-cloud-connectors-cloudfoundry&lt;/artifactId&gt;
+              &lt;version&gt;0.0.1.RC2&lt;/version&gt;
+            &lt;/dependency&gt;
+        </script>
+      </div>
+    </section>
+
+    <section class="slide">
       <div class="header">Interfacing With Cloudant</div>
       <div class="slide-content">
         <ul>
@@ -502,38 +557,73 @@
     </section>
 
     <section class="slide">
+      <div class="header">Creating A Cloudant Connector Bean</div>
+      <div class="slide-content">
+        <ul>
+          <li>Lets create a bean that will connect to our database and we can use
+            in our repository</li>
+          <li>This bean will have the added benefit in that is can be injected into
+            other classes and will be created by the runtime for us</li>
+          <li>Create a class called CloudantBean in the package net.bluemix.todos with the
+            following code</li>
+        </ul>
+        <script type="syntaxhighlighter" class="brush: java">
+          package net.bluemix.todos;
+          import javax.enterprise.context.ApplicationScoped;
+          import javax.enterprise.inject.Produces;
+          import org.ektorp.CouchDbConnector;
+          import org.ektorp.CouchDbInstance;
+          import org.ektorp.impl.StdCouchDbConnector;
+          import org.springframework.cloud.Cloud;
+          import org.springframework.cloud.CloudFactory;
+
+          @ApplicationScoped
+          public class CloudantBean {
+            private static Cloud cloud = new CloudFactory().getCloud();
+  
+            @Produces
+            public ToDoRepository statusRepository() {
+              CouchDbInstance db = cloud.getServiceConnector("todo-cloudant", CouchDbInstance.class, null /* default config */);
+              CouchDbConnector connector = new StdCouchDbConnector("todos", db);
+              connector.createDatabaseIfNotExists();
+              return new ToDoRepository(connector);
+            }
+          }
+        </script>
+      </div>
+    </section>
+
+    <section class="slide">
       <div class="header">Creating Our REST Controller</div>
       <div class="slide-content">
         <ul>
           <li>At this point we are ready to implement our REST APIs</li>
           <li>Create a class called ToDoRestController and add the following code to it
             <script type="syntaxhighlighter" class="brush: java">
-              package net.bluemix.todos;
-              import javax.naming.InitialContext;
-              import javax.naming.NamingException;
+              import java.util.List;
+              import javax.inject.Inject;
+              import javax.inject.Singleton;
+              import javax.ws.rs.Consumes;
+              import javax.ws.rs.DELETE;
+              import javax.ws.rs.GET;
+              import javax.ws.rs.POST;
+              import javax.ws.rs.PUT;
               import javax.ws.rs.Path;
-              import org.ektorp.CouchDbConnector;
-              import org.ektorp.CouchDbInstance;
-              import org.ektorp.impl.StdCouchDbConnector;
+              import javax.ws.rs.PathParam;
+              import javax.ws.rs.Produces;
+              import javax.ws.rs.core.MediaType;
+              @Singleton
               @Path("/todos")
               public class ToDoRestController {
-                private static ToDoRepository repo;
-   
-                public ToDoRestController() throws NamingException {
-                  if(repo == null) {
-                    CouchDbInstance db = (CouchDbInstance) new InitialContext().lookup(
-                      "java:comp/env/couchdb/todo-cloudant");
-                    CouchDbConnector connector = new StdCouchDbConnector("todos", db);
-                    repo = new ToDoRepository(connector);
-                  }
-                }
+                @Inject
+                private ToDoRepository repo;
               }
             </script>
           </li>
           <li>Save the class file</li>
           <li>The @Path annotation tells JAX-RS that the endpoint for this class is at /todos (we have configured JAX-RS in the web.xml to tell it that all endpoints are prepended with the /api)</li>
-          <li>We are using JDNI to ask Liberty for a CouchDbInstance using the credentials we configured in the server.xml</li>
-          <li>Then we use the standard Ektorp APIs to point to our todos database in Cloudant and pass that DB to our ToDoRepository constructor</li>
+          <li>We inject the ToDoRespository created by our CloudantBean into our controller so we
+            can interface with the database</li>
         </ul>
       </div>
     </section>
@@ -621,15 +711,71 @@
     </section>
 
     <section class="slide">
+      <div class="header">Pointing Our App At The DB</div>
+      <div class="slide-content">
+        <p>The last thing we need to do is let our app know where the DB is located</p>
+        <ul>
+          <li>When the app runs in Bluemix the Bluemix Cloud Connectors libraries will automatically
+            check for the VCAP_SERVICES environment variable</li>
+          <li>When the app runs locally and the VCAP_SERVICES environment variable is not set
+              the Bluemix Cloud Connectors project looks for a file called spring-cloud-bootstrap.properties on the classpath</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Creating spring-cloud-bootstrap.properties</div>
+      <div class="slide-content">
+        <ul>
+          <li>Right click on the src/main/resources folder of the CloudantToDos project and
+            select New -> Other</li>
+          <li>In the New dialog expand New and select File</li>
+          <li>In the New File dialog give the file the name spring-cloud-bootstrap.properties</li>
+          <li>Click Finish</li>
+          <li>Within the file add the following property
+          <script type="syntaxhighlighter" class="brush: js">
+          spring.cloud.propertiesFile: ${user.home}/cloudant-todos/spring-cloud.properties
+          </script>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Creating spring-cloud.properties</div>
+      <div class="slide-content">
+        <ul>
+          <li>Create a new file called spring-cloud.properties in your user's home directory on your machine</li>
+          <li>Add the following properties to the file
+          <script type="syntaxhighlighter" class="brush: js">
+          spring.cloud.appId: CloudantToDos
+          spring.cloud.todo-cloudant: couchdb://cloudantuser:cloudantpw@cloudanthostname
+          </script>
+          </li>
+          <li>Replace cloudantuser with the username from the VCAP_SERVICES environment variable
+            for Cloudant in Bluemix</li>
+          <li>Replace cloudantpw with the password from the VCAP_SERVICES environment variable
+            for Cloudant in Bluemix</li>
+          <li>Replace cloudanthostanme with the hostname from the VCAP_SERVICES environment variable
+            for Cloudant in Bluemix</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="slide">
       <div class="header">Testing It Out</div>
       <div class="slide-content">
         <ul>
           <li>
             We have implementations for all APIs at this point so lets try out the application
           </li>
-          <li>In the Servers view in Eclipse start the Websphere Application Server</li>
+          <li>In the Servers view in Eclipse right click on the Websphere Application Server and select Add and Remove...</li>
+          <li>In the Add and Remove dialog select the CloudantToDos app from the Available column and click Add ></li>
+          <li>Click Finish</li>
+          <li>Right click on the Websphere Application Server again and select Publish</li>
+          <li>Right click on the Websphere Application Server again and select Run</li>
           <li>
-            Head to <a href="http://localhost:9080">http://localhost:9080</a> and you should be able
+            Head to <a href="http://localhost:9080/CloudantToDos/">http://localhost:9080/CloudantToDos/</a> and you should be able
             to add update and delete ToDos without any errors. 
           </li>
           <li>
@@ -646,7 +792,7 @@
       <div class="slide-content">
         <p>
           We can use a 
-          <a href="https://www.ng.bluemix.net/docs/#manageapps/index-gentopic2.html#appmanifest">manifest file</a> to specify parameters for our deployment to 
+          <a href="https://www.ng.bluemix.net/docs/#manageapps/index-gentopic2.html#appmanifest" target="_blank">manifest file</a> to specify parameters for our deployment to 
           Bluemix.  Manifests make our cf push command simple and consistent 
           by taking all the parameters we would normally specify on the command line and putting them in a file.
         </p>
@@ -656,13 +802,15 @@
           <li>Copy the below code into the editor and save the file</li>
         </ol>
         <script type="syntaxhighlighter" class="brush: text">
-           ---
+          ---
           applications:
           - name: java-todo
             memory: 512M
-            path: ToDoCloudant.war
+            path: target/CloudantToDos-0.0.1-SNAPSHOT.war
             services:
             - todo-cloudant
+            env:
+              services_autoconfig_excludes: cloudantNoSQLDB=all
         </script>
         <p>
           If you would like an easy way of generating these files check out the 
@@ -675,6 +823,8 @@
       <div class="header">Deploying Working ToDo App</div>
       <div class="slide-content">
         <ul>
+          <li>Lets build our application war and deploy it to Bluemix</li>
+          <li>Right click on the CloudantToDos project in Eclipse and select Run As -> Maven Build</li>
           <li>We are ready to do our deployment, but wouldn't it be nice to see the logs of our application while
           we deploy the application?</li>
           <li>Open a new terminal window.  You should now have 2 terminals open.</li>
@@ -689,7 +839,7 @@
           </li>
           <li>The cf logs command tails the log files of your application so you can see them right in your command prompt window. This tool is very useful for debugging problems that might be occurring during deployment or during runtime.</li>
           <li>
-            In the other terminal window run the following command from bluemix-workshops/todo/java/starter
+            In the other terminal window run the following command from bluemix-workshops/todo/java/starter/CloudantToDos
             <div class="shell-wrap">
               <p class="shell-top-bar">/Users/bluemix/todos</p>
               <ul class="shell-body">
