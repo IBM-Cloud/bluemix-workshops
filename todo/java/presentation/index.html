@@ -66,7 +66,6 @@
         <ul>
           <li>How to create an application in Bluemix</li>
           <li>How to bind a service from the Bluemix Service Catalog to your application in Bluemix</li>
-          <li>How to use the IBM Liberty Profile auto-configuration to access services in your Java application</li>
           <li>How to setup a local Eclipse development environment with the IBM Liberty Profile beta</li>
           <li>How to deploy new code to your application in Bluemix</li>
           <li>How to view the logs of your application running in Bluemix</li>
@@ -80,7 +79,7 @@
         <p>Here are a list of prerequisites you will need in order to complete this workshop.</p>
         <ul>
           <li><a target="_blank" href="https://www.eclipse.org/downloads/packages/eclipse-ide-java-ee-developers/lunasr2">Eclipse Luna for Java EE Developers</a></li>
-          <li><a target="_blank" href="https://developer.ibm.com/wasdev/downloads/liberty-profile-using-eclipse/">IBM Websphere Application Server Runtime For Eclipse</a> (<a class="popup-link" href="https://www.youtube.com/watch?v=H1UETm_jn2g">Watch Demonstration</a>)</li> 
+          <li><a target="_blank" href="https://developer.ibm.com/wasdev/downloads/liberty-profile-using-eclipse/">IBM Websphere Application Server Runtime For Eclipse</a> (<a class="popup-link" href="https://www.youtube.com/watch?v=RmwXEfcOzOs">Watch Demonstration</a>)</li> 
           <li><a target="_blank" href="https://www.ng.bluemix.net/docs/#starters/BuildingWeb.html#install_cf">Cloud Foundry Command Line Tools</a></li>
           <li><a target="_blank" href="https://apps.admin.ibmcloud.com/manage/trial/bluemix.html">IBM Bluemix Account</a></li>
         </ul>
@@ -104,7 +103,7 @@
           <li>In the Add and Remove dialog select Finish</li>
           <li>Once the download finishes you will see a dialog telling you it was successful, click OK.</li>
         </ul>
-        <a class="popup-link" href="https://www.youtube.com/watch?v=PNdTuhGamWI">Watch Demonstration</a>
+        <a class="popup-link" href="https://www.youtube.com/watch?v=h5U050q6Fmc">Watch Demonstration</a>
       </div>
     </section>
 
@@ -121,7 +120,7 @@
             For example, you can append your name to "java-todo", ie "ryan-java-todo".</li>
           <li>Click "Create" to create your application</li>
         </ol>
-        <a class="popup-link" href="https://www.youtube.com/watch?v=XC3mcJoREmo">Watch Demonstration</a>
+        <a class="popup-link" href="https://www.youtube.com/watch?v=AmxVNfNsc-Y">Watch Demonstration</a>
       </div>
     </section>
 
@@ -140,7 +139,7 @@
           </li>
           <li>The application you see is what Bluemix deploys by default when you create an application from the Java Liberty runtime, we will replace this application with our ToDo app.</li>
         </ul>
-        <a class="popup-link" href="https://www.youtube.com/watch?v=_unDcwi8Peg">Watch Demonstration</a>
+        <a class="popup-link" href="https://www.youtube.com/watch?v=_EXzrD38JwU">Watch Demonstration</a>
       </div>
     </section>
 
@@ -168,21 +167,19 @@
       <div class="header">Getting The Code</div>
       <div class="slide-content">
         <ol>
-          <li>Clone the GitHub repo by issuing the below git clone command (you may also use a Git GUI client if you want) 
-
-            <div class="shell-wrap">
-              <p class="shell-top-bar">/Users/bluemix/todos</p>
-              <ul class="shell-body">
-                <li>$ git clone https://github.com/IBM-Bluemix/bluemix-workshops.git</li>
-              </ul>
-            </div>
+          <li>In Eclipse go to Window -> Open Perspective -> Other...
           </li>
-          <li>If you don't have a Git client installed, you can download the source code as a zip file. If you download the zip you will need to extract the code after the download completes.</li>
-          <li>In Eclipse go to File -> Import -> Maven -> Existing Maven Projects</li>
+          <li>In the dialog select Git and click OK</li>
+          <li>In the Git Repositories view select Clone a Git repository</li>
+          <li>In the Clone A Git Repository dialog enter https://github.com/IBM-Bluemix/bluemix-workshops.git in the URI field and select Next</li>
+          <li>Make sure master is checked off in the branch selection dialog and click Next</li>
+          <li>In the Local Destination dialog enter a directory to clone the Git repository to and click Finish</li>
+          <li>Go back to the Java EE perspective in Eclipse</li>
+          <li>Go to File -> Import -> Maven -> Existing Maven Projects</li>
           <li>In the resulting dialog navigate to bluemix-workshops/todo/java/starter and click OK.</li>
           <li>You should now see the CloudantToDos project listed inside the import dialog, click "Finish" to import the project into your workspace.</li>
         </ol>
-        <a class="popup-link" href="https://www.youtube.com/watch?v=X-ke7NWgvPc">Watch Demonstration</a>
+        <a class="popup-link" href="https://www.youtube.com/watch?v=MzGt32yC3xQ">Watch Demonstration</a>
 
       </div>
     </section>
@@ -199,7 +196,7 @@
           <li>Right click on the CloudantToDos project in Eclipse and select "Refresh"</li>
           <li>You should now see a new file in the target folder in the project called CloudantToDos-0.0.1-SNAPSHOT.war</li>
         </ol>
-        <a class="popup-link" href="https://www.youtube.com/watch?v=wKegmEGrxq4">Watch Demonstration</a>
+        <a class="popup-link" href="https://www.youtube.com/watch?v=AF8OGJ1l7qg">Watch Demonstration</a>
       </div>
     </section>
 
@@ -231,7 +228,7 @@
           UI or go back to Bluemix and select the URL to launch it again.  You should now see the ToDo
           UI instead of the sample application.
         </p>
-        <a class="popup-link" href="https://www.youtube.com/watch?v=feTFvUEPBNE">Watch Demonstration</a>
+        <a class="popup-link" href="https://www.youtube.com/watch?v=3gIWthfdGCw">Watch Demonstration</a>
 
       </div>
     </section>
@@ -242,7 +239,7 @@
         <p>While our ToDo application successfully deployed to Bluemix you will notice that it is not functioning properly yet.  Open your browsers developer console and reload the page, you will notice there is an error.
           This is because the web application is making a request to a URL that does not exist yet.
         </p>
-        <a class="popup-link" href="https://www.youtube.com/watch?v=qbYElNV467w">Watch Demonstration</a>
+        <a class="popup-link" href="https://www.youtube.com/watch?v=VhxHg8NtrPk">Watch Demonstration</a>
       </div>
     </section>
 
@@ -307,7 +304,7 @@
             click the arrow next to the words "Show Credentials".  These are the credentials your application will use to access Cloudant.
           </li>
         </ol>
-        <a class="popup-link" href="https://www.youtube.com/watch?v=axxrIB6HnmI">Watch Demonstration</a>
+        <a class="popup-link" href="https://www.youtube.com/watch?v=khUghyrrJB8">Watch Demonstration</a>
       </div>
     </section>
 
@@ -341,100 +338,6 @@
           <li>Enter the name "todos" and click "Create".</li>
         </ol>
         <a class="popup-link" href="https://www.youtube.com/watch?v=q8xFpU_zx6M">Watch Demonstration</a>
-      </div>
-    </section>
-
-    <section class="slide">
-      <div class="header">Setting Up Liberty To Connect To Cloudant</div>
-      <div class="slide-content">
-        <ul>
-          <li>Liberty can be configured to use the <a href="http://ektorp.org/">Ektorp Java API For CouchDB</a> for communicating with Cloudant</li>
-          <li>In the Servers view within Eclipse expand the Websphere Application Server Liberty Profile and double click on the server element to open the server.xml</li>
-          <li>Select the "Source" tab in the editor</li>
-          <li>Copy the contents of the server.xml file from bluemix-workshops/todo/java into your own server.xml in Eclipse</li>
-          <li>There are a couple of key parts to this server.xml
-            <ul>
-              <li>We have added the couchdb-1.0 feature to the feature manager</li>
-              <li>There is library with the id couchdb-lib which points to several jars in the server's lib directory.  We will place these jars in this folder a little later.</li>
-              <li>There is a couchdb element which should point to Cloudant.  We will configure this element with the right credentials a little later.</li>
-              <li>We have created a web application for the CloudantToDo app and have told
-                Liberty to provide the jars in the couchdb-lib to the application at runtime</li>
-            </ul>
-          </li>
-        </ul>
-        <a class="popup-link" href="https://www.youtube.com/watch?v=SvvGBBOkevQ">Watch Demonstration</a>
-      </div>
-    </section>
-
-    <section class="slide">
-      <div class="header">Adding Couch DB Jars To The Liberty Runtime</div>
-      <div class="slide-content">
-        <ul>
-          <li>In the previous slide we pointed our server.xml at some jars in our Liberty runtime, so we need to make sure those jars are there</li>
-          <li>Copy all the jars from bluemix-workshops/todos/java/starter/CloudantToDos/dep-libs into &lt;liberty&gt;/usr/servers/defaultServer/lib
-            <ul>
-              <li>The liberty directory is the directory where you downloaded the Liberty Beta Runtime</li>
-              <li>The defaultServer directory may be called something different for you if you customized the server name when you created it</li>
-              <li>The lib directory may not exist inside your server, if so just create the lib directory and place the jars in that directory</li>
-            </ul>
-          </li>
-        </ul>
-        <a class="popup-link" href="https://www.youtube.com/watch?v=9mG14-cM_2U">Watch Demonstration</a>
-      </div>
-    </section>
-
-    <section class="slide">
-      <div class="header">Configuring Couch DB To Point To Cloudant</div>
-      <div class="slide-content">
-        <ul>
-          <li>We need to configure the couchdb element in our server.xml to point at the Cloudant service we created in Bluemix</li>
-          <li>In the application dashboard in Bluemix expand the credentials section of your Cloudant service</li>
-          <li>In your server.xml in Eclipse replace the host, the username, and password with what is displayed in the Credentials section of the Cloudant service on Bluemix</li>
-        </ul>
-        <a class="popup-link" href="https://www.youtube.com/watch?v=U33OLo_MYMU">Watch Demonstration</a>
-      </div>
-    </section>
-
-    <section class="slide">
-      <div class="header">Adding Cloudant Resource To The web.xml</div>
-      <div class="slide-content">
-        <ul>
-          <li>We need to add a resource environment reference to the web.xml of our CloudantToDos app to allow the web app to reference the JDNI extension we configured in the server.xml</li>
-          <li>In Eclipse open the WebContent/WEB-INF folder inside the CloudantToDos project and open the web.xml file</li>
-          <li>Add the following snippet of XML to the web.xml</li>
-          <script type="syntaxhighlighter" class="brush: xml">
-            &lt;resource-env-ref&gt;
-              &lt;resource-env-ref-name&gt;couchdb/todo-cloudant&lt;/resource-env-ref-name&gt;
-              &lt;resource-env-ref-type&gt;org.ektorp.CouchDbInstance&lt;/resource-env-ref-type&gt;
-            &lt;/resource-env-ref&gt;
-            </script>
-        </ul>
-      </div>
-    </section>
-
-    <section class="slide">
-      <div class="header">Liberty + CouchDB</div>
-      <div class="slide-content">
-        <p>For more information about how to configure the Liberty Profile and CouchDB you
-          can read the <a href="http://www-01.ibm.com/support/knowledgecenter/was_beta_liberty/com.ibm.websphere.wlp.nd.multiplatform.doc/ae/twlp_couchdb_create.html" target="_blank">documentation</a>.</p>
-      </div>
-    </section>
-
-    <section class="slide">
-      <div class="header">Test It Out</div>
-      <div class="slide-content">
-        <ul>
-          <li>
-            At this point we can run our application in our local Liberty server
-          </li>
-          <li>
-            In the Servers view within Eclipse right click on the Websphere Application Server and select debug
-          </li>
-          <li>The console in Eclipse should open showing you information about the server starting</li>
-          <li>Once the server starts click the link in the Console view to the CloudantToDos application or copy the link and open it in your favorite browser</li>
-          <li>Just like in the version running on Bluemix, you will notice errors in the developer console of your browser</li>
-        </ul>
-        <a class="popup-link" href="https://www.youtube.com/watch?v=tL87OPfO7Zo">Watch Demonstration</a>
       </div>
     </section>
 
@@ -600,6 +503,7 @@
           <li>At this point we are ready to implement our REST APIs</li>
           <li>Create a class called ToDoRestController and add the following code to it
             <script type="syntaxhighlighter" class="brush: java">
+              package net.bluemix.todos;
               import java.util.List;
               import javax.inject.Inject;
               import javax.inject.Singleton;
@@ -729,7 +633,7 @@
         <ul>
           <li>Right click on the src/main/resources folder of the CloudantToDos project and
             select New -> Other</li>
-          <li>In the New dialog expand New and select File</li>
+          <li>In the New dialog expand General and select File</li>
           <li>In the New File dialog give the file the name spring-cloud-bootstrap.properties</li>
           <li>Click Finish</li>
           <li>Within the file add the following property
@@ -745,7 +649,7 @@
       <div class="header">Creating spring-cloud.properties</div>
       <div class="slide-content">
         <ul>
-          <li>Create a new file called spring-cloud.properties in your user's home directory on your machine</li>
+          <li>Create a new file called spring-cloud.properties in a folder called cloudant-todos in your user's home directory</li>
           <li>Add the following properties to the file
           <script type="syntaxhighlighter" class="brush: js">
           spring.cloud.appId: CloudantToDos
@@ -759,6 +663,7 @@
           <li>Replace cloudanthostanme with the hostname from the VCAP_SERVICES environment variable
             for Cloudant in Bluemix</li>
         </ul>
+        <a class="popup-link" href="https://www.youtube.com/watch?v=IXbGaGzeTkM">Watch Demonstration</a>
       </div>
     </section>
 
@@ -783,7 +688,7 @@
             dashboard in Bluemix, selecting the todo DB and opening some of the documents in there.
           </li>
         </ul>
-        <a class="popup-link" href="https://www.youtube.com/watch?v=dnuPvHXBils">Watch Demonstration</a>
+        <a class="popup-link" href="https://www.youtube.com/watch?v=Sjt65HeGRxY">Watch Demonstration</a>
       </div>
     </section>
 
@@ -854,7 +759,7 @@
           In about 30 seconds your deployment should finish and your application should be deployed.
           Head to your application URL and try it out.
         </p>
-        <a class="popup-link" href="https://www.youtube.com/watch?v=Nrffw6h6fmM">Watch Demonstration</a>
+        <a class="popup-link" href="https://www.youtube.com/watch?v=YsGo_SrZStQ">Watch Demonstration</a>
       </div>
     </section>
 
