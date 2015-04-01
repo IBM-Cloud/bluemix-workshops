@@ -144,26 +144,6 @@
     </section>
 
     <section class="slide">
-      <div class="header">Logging Into Bluemix From The Command Line</div>
-      <div class="slide-content">
-        <p>You should already have the Cloud Foundry Command Line Tools installed, if not go to the prerequisites slide and follow the link to the install instructions.</p>
-        <ol>
-          <li>Open a terminal window</li>
-          <li>Issue the cf login command
-
-            <div class="shell-wrap">
-              <p class="shell-top-bar">/Users/bluemix/todos</p>
-              <ul class="shell-body">
-                <li>$ cf login -a api.ng.bluemix.net</li>
-              </ul>
-            </div>
-          </li>
-          <li>The cf login command will prompt you for your username and password.  Enter the same username and password you use to login to Bluemix.</li>
-        </ol>
-      </div>
-    </section>
-
-    <section class="slide">
       <div class="header">Getting The Code</div>
       <div class="slide-content">
         <ol>
@@ -200,7 +180,25 @@
       </div>
     </section>
 
+    <section class="slide">
+      <div class="header">Logging Into Bluemix From The Command Line</div>
+      <div class="slide-content">
+        <p>You should already have the Cloud Foundry Command Line Tools installed, if not go to the prerequisites slide and follow the link to the install instructions.</p>
+        <ol>
+          <li>Open a terminal window</li>
+          <li>Issue the cf login command
 
+            <div class="shell-wrap">
+              <p class="shell-top-bar">/Users/bluemix/todos</p>
+              <ul class="shell-body">
+                <li>$ cf login -a api.ng.bluemix.net</li>
+              </ul>
+            </div>
+          </li>
+          <li>The cf login command will prompt you for your username and password.  Enter the same username and password you use to login to Bluemix.</li>
+        </ol>
+      </div>
+    </section>
 
     <section class="slide">
       <div class="header">Deploy The ToDo App</div>
@@ -219,7 +217,7 @@
             <div class="shell-wrap">
               <p class="shell-top-bar">/Users/bluemix/todos</p>
               <ul class="shell-body">
-                <li>$ cf push java-todo -p CloudantToDos-0.0.1-SNAPSHOT.war -m 512M</li>
+                <li>$ cf push java-todo -p CloudantToDos-0.0.1-SNAPSHOT.war</li>
               </ul>
             </div>
           </li>
@@ -387,11 +385,10 @@
       <div class="header">Persisting Data To Cloudant</div>
       <div class="slide-content">
         <ul>
-          <li>Cloudant is based upon Apache Couch DB and therefore conforms to all the Couch DB
-            REST APIs</li>
-          <li>This means we can use open source Couch DB client libraries to persist data to 
-            Cloudant</li>
-          <li>In this example we will use the Ektorp Couch DB client libraries for Java</li>
+          <li>Cloudant is based upon <a href="http://couchdb.apache.org/" target="_blank">Apache CouchDB</a> and therefore conforms to all the <a href="http://docs.couchdb.org/en/1.6.1/intro/api.html" target="_blank">CouchDB
+            REST APIs</a></li>
+          <li>This means we can use open source CouchDB client libraries to persist data to Cloudant</li>
+          <li>In this example we will use the <a href="http://ektorp.org/" target="_blank">Ektorp CouchDB</a> client libraries for Java</li>
         </ul>
       </div>
     </section>
@@ -402,12 +399,14 @@
         <ul>
           <li>One of the problems we face is that in Bluemix our Cloudant credentials are
             made available to our application at runtime via the VCAP_SERVICES environment
-            variable, yet that environment variable is not set locally</li>
+            variable, yet we may also want to run our application outside of Bluemix, for example locally during development</li>
           <li>We could come up with some logic in our code to detect if the environment variable
-            is set and do something different when it is not locally...or we could set it locally...
-            but this gets messy</li>
-          <li>Ideally we would write some code that would work locally and in Bluemix</li>
+            is set and do something different when it is not...or we could set it locally...but this gets messy</li>
+          <li>Ideally our code would be agnostic of where the application is deployed</li>
           <li>The <a href="https://github.com/IBM-Bluemix/bluemix-cloud-connectors" target="_blank">Bluemix Cloud Connectors project</a> does exactly this</li>
+          <li>The Bluemix Cloud Connectors project offers a connector for Cloudant/CouchDB that allows you to write code that works the same whether running your app in Bluemix or outside of Bluemix</li>
+          <li>Within Bluemix the Cloud Connectors project will use the VCAP_SERVICES environment variable to find connection information for services your app uses</li>
+          <li>Outside of Bluemix the Cloud Connectors project uses an external properties file to connection information for services your app uses</li>
         </ul>
       </div>
     </section>
@@ -678,7 +677,7 @@
           <li>In the Add and Remove dialog select the CloudantToDos app from the Available column and click Add ></li>
           <li>Click Finish</li>
           <li>Right click on the Websphere Application Server again and select Publish</li>
-          <li>Right click on the Websphere Application Server again and select Run</li>
+          <li>Right click on the Websphere Application Server again and select Start</li>
           <li>
             Head to <a href="http://localhost:9080/CloudantToDos/">http://localhost:9080/CloudantToDos/</a> and you should be able
             to add update and delete ToDos without any errors. 
@@ -721,6 +720,15 @@
           If you would like an easy way of generating these files check out the 
           <a href="http://cfmanigen.mybluemix.net/">CF Manifest Generator</a>.
         </p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">What Is This Environment Variable In The Manifest?</div>
+      <div class="slide-content">
+        <p>The Liberty buildpack, which is used by default when running a Java application in Bluemix, contains a feature called <a href="https://www.ng.bluemix.net/docs/#starters/liberty/index.html#automaticconfigurationofboundservices" target="_blank">auto-configuration</a>.
+          For certain service in Bluemix, like Cloudant, the auto-configuration feature will detect the Cloudant service is bound to the application and try
+          and provide our application with jars it thinks we will need to leverage the service.  In our case we don't need these jars because they are included with our application.  You can opt out of auto-configuration by using an environment variable.  For more information see the <a href="https://www.ng.bluemix.net/docs/#starters/liberty/index.html#automaticconfigurationofboundservices" target="_blank">documentation</a>.
       </div>
     </section>
 
