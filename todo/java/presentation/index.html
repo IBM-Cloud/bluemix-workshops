@@ -118,6 +118,7 @@
           <li>In the resulting dialog, give your application the name "java-todo"</li>
           <li>The hostname will match the application name by default, you will need to change it to be unique.
             For example, you can append your name to "java-todo", ie "ryan-java-todo".</li>
+          <li>Make sure the Domain drop down is set to mybluemix.net</li>
           <li>Click "Create" to create your application</li>
         </ol>
         <a class="popup-link" href="https://www.youtube.com/watch?v=AmxVNfNsc-Y">Watch Demonstration</a>
@@ -459,43 +460,6 @@
     </section>
 
     <section class="slide">
-      <div class="header">Creating A Cloudant Connector Bean</div>
-      <div class="slide-content">
-        <ul>
-          <li>Lets create a bean that will connect to our database and we can use
-            in our repository</li>
-          <li>This bean will have the added benefit in that is can be injected into
-            other classes and will be created by the runtime for us</li>
-          <li>Create a class called CloudantBean in the package net.bluemix.todos with the
-            following code</li>
-        </ul>
-        <script type="syntaxhighlighter" class="brush: java">
-          package net.bluemix.todos;
-          import javax.enterprise.context.ApplicationScoped;
-          import javax.enterprise.inject.Produces;
-          import org.ektorp.CouchDbConnector;
-          import org.ektorp.CouchDbInstance;
-          import org.ektorp.impl.StdCouchDbConnector;
-          import org.springframework.cloud.Cloud;
-          import org.springframework.cloud.CloudFactory;
-
-          @ApplicationScoped
-          public class CloudantBean {
-            private static Cloud cloud = new CloudFactory().getCloud();
-  
-            @Produces
-            public ToDoRepository statusRepository() {
-              CouchDbInstance db = cloud.getServiceConnector("todo-cloudant", CouchDbInstance.class, null /* default config */);
-              CouchDbConnector connector = new StdCouchDbConnector("todos", db);
-              connector.createDatabaseIfNotExists();
-              return new ToDoRepository(connector);
-            }
-          }
-        </script>
-      </div>
-    </section>
-
-    <section class="slide">
       <div class="header">Creating Our REST Controller</div>
       <div class="slide-content">
         <ul>
@@ -610,6 +574,43 @@
           We first get the ToDo from the DB with the ID that is specified in the path parameter.
           Then we use the repository to delete the ToDo from the DB.
         </p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="header">Creating A Cloudant Connector Bean</div>
+      <div class="slide-content">
+        <ul>
+          <li>Lets create a bean that will connect to our database and we can use
+            in our repository</li>
+          <li>This bean will have the added benefit in that is can be injected into
+            other classes and will be created by the runtime for us</li>
+          <li>Create a class called CloudantBean in the package net.bluemix.todos with the
+            following code</li>
+        </ul>
+        <script type="syntaxhighlighter" class="brush: java">
+          package net.bluemix.todos;
+          import javax.enterprise.context.ApplicationScoped;
+          import javax.enterprise.inject.Produces;
+          import org.ektorp.CouchDbConnector;
+          import org.ektorp.CouchDbInstance;
+          import org.ektorp.impl.StdCouchDbConnector;
+          import org.springframework.cloud.Cloud;
+          import org.springframework.cloud.CloudFactory;
+
+          @ApplicationScoped
+          public class CloudantBean {
+            private static Cloud cloud = new CloudFactory().getCloud();
+  
+            @Produces
+            public ToDoRepository statusRepository() {
+              CouchDbInstance db = cloud.getServiceConnector("todo-cloudant", CouchDbInstance.class, null /* default config */);
+              CouchDbConnector connector = new StdCouchDbConnector("todos", db);
+              connector.createDatabaseIfNotExists();
+              return new ToDoRepository(connector);
+            }
+          }
+        </script>
       </div>
     </section>
 
