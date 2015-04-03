@@ -92,9 +92,10 @@
         <ul>
           <li>Open the Servers view in Eclipse</li>
           <li>Right click in the view and select New -> Server</li>
+          <li>In the New Server dialog expand IBM, select Websphere Application Server Liberty Profile and click Next</li>
           <li>In the New Server dialog select the Install from an archive or repository option</li>
           <li>Select Next</li>
-          <li>In the New Server dialog select a destination to install the Liberty runtime, you can pick any folder you would like</li>
+          <li>In the Liberty Profile Runtime Environment dialog select a destination to install the Liberty runtime, you can pick any folder you would like</li>
           <li>Select the Download and install a new runtime environment from ibm.com option</li>
           <li>Make sure the Liberty Repository is selected, and select Liberty v9 Beta with Java EE 7 Runtime. Click Next.</li>
           <li>From the add-ons list, click the Install button next to the Liberty Profile Beta Extended Package. Click Next.</li>
@@ -111,7 +112,7 @@
       <div class="header">Creating A Java App In Bluemix</div>
       <div class="slide-content">
         <ol>
-          <li>Go to <a href="http://bluemix.bet" target="_blank">bluemix.net</a></li>
+          <li>Go to <a href="http://bluemix.net" target="_blank">bluemix.net</a></li>
           <li>Login with the ID and password you used to register for Bluemix with</li>
           <li>In the header, select the "Catalog" link</li>
           <li>In the Catalog select the Liberty for Java runtime</li>
@@ -130,7 +131,7 @@
       <div class="slide-content">
         <ul>
           <li>
-            You will be brought to the Start Coding screen once the app is created.  Click the Overview
+            You will be brought to the Start Coding screen once the app is created.  Click the "Overview"
             link in the left-hand navigator to go to the application dashboard.
           </li>
           <li>While your application is now created in Bluemix, it is not yet deployed.  Keep an eye on the status indicator in the upper right-hand corner, it will update as the application goes through the deployment process.</li>
@@ -171,7 +172,7 @@
         <ol>
           <li>In Eclipse, expand the CloudantToDos project</li>
           <li>Right click on the pom.xml file and select Run As -> Maven Build...</li>
-          <li>In the Goals field in the Configuration dialog enter package
+          <li>In the Goals field in the Configuration dialog enter "package"
           <li>In the configuration dialog, click "Run"</li>
           <li>The Console view in Eclipse should open and the build should complete successfully</li>
           <li>Right click on the CloudantToDos project in Eclipse and select "Refresh"</li>
@@ -345,7 +346,9 @@
       <div class="slide-content">
         <ul>
           <li>Since we are good Java developers we probably want to create a Java object to represent a ToDo.  Besides being good practice, we can take advantage of <a href="http://jackson.codehaus.org/" target="_blank">Jackson</a> to serialize and deserialize our POJO to and from JSON.</li>
-          <li>In the package net.bluemix.todos, create a new class called ToDo</li>
+          <li>In Eclipse create a new class by right clicking on the src/main/java folder within the Java Resources in the CloudantToDos project</li>
+          <li>In the package field of the New Java Class dialog enter "net.bluemix.todos"</li>
+          <li>In the name field of the New Java Class dialog enter "ToDo"</li>
           <li>Copy the following code into the resulting class file
             <script type="syntaxhighlighter" class="brush: java">
               package net.bluemix.todos;
@@ -561,7 +564,7 @@
     <section class="slide">
       <div class="header">Implementing DELETE /api/todos/{id}</div>
       <div class="slide-content">
-        <p>Add the following code to app.js to implement the DELETE method.</p>
+        <p>Add the following code to ToDoRestController to implement the DELETE method.</p>
         <script type="syntaxhighlighter" class="brush: js">
           @DELETE
           @Path("{id}")
@@ -633,7 +636,7 @@
         <ul>
           <li>Right click on the src/main/resources folder of the CloudantToDos project and
             select New -> Other</li>
-          <li>In the New dialog expand General and select File</li>
+          <li>In the New dialog expand General and select File and click Next</li>
           <li>In the New File dialog give the file the name spring-cloud-bootstrap.properties</li>
           <li>Click Finish</li>
           <li>Within the file add the following property
@@ -702,7 +705,7 @@
           by taking all the parameters we would normally specify on the command line and putting them in a file.
         </p>
         <ol>
-          <li>In Eclipse right click on the CloudantToDos project and select New -> File</li>
+          <li>In Eclipse right click on the CloudantToDos project and select New -> File and click Finish</li>
           <li>In the New File dialog give the file the name "manifest.yml"</li>
           <li>Copy the below code into the editor and save the file</li>
         </ol>
