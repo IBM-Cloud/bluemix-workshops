@@ -64,9 +64,9 @@
       <div class="slide-content">
         <p>In this workshop you will learn about the following:</p>
         <ul>
-          <li>What is Node-RED and why should I use it?</li>
-          <li>How to I bring things from the internet into my app?</li>
-          <li>How do I connect devices to Node-RED?</li>
+          <li>What is Node-RED and why should you use it</li>
+          <li>How to use cloud APIs in a Node-RED flow</li>
+          <li>How to connect to devices in Node-RED and process the data coming from them</li>
         </ul>
       </div>
     </section>
@@ -76,7 +76,7 @@
       <div class="slide-content">
         <ul>
           <li>
-            "A visual tool for wiring the internet of things." - nodereg.org
+            "A visual tool for wiring the internet of things." - nodered.org
             <ul>
               <li>
                 This can mean collecting data from sensors connected to the internet
@@ -88,8 +88,15 @@
             </ul>
           </li>
           <li>Allows developers to visually construct flows by connecting "nodes"</li>
-          <li>Nodes represent common pieces of logic that perform certain operation for you to accomplish a task</li>
+          <li>Nodes represent reusable pieces of code and logic</li>
         </ul>
+      </div>
+    </section>
+    
+    <section class="slide">
+      <div class="header">What Can You Build With Node-RED?</div>
+      <div class="slide-content">
+      	<a class="popup-link" href="https://www.youtube.com/watch?v=9jqiCFf5XcQ">Using Node-RED to help pour a beer!!!</a>
       </div>
     </section>
 
@@ -98,7 +105,7 @@
       <div class="slide-content">
         <ul>
           <li>
-            Node-RED is an open source project coming out of IBM's emerging technologies group
+            Node-RED is an open source project coming out of IBM's Emerging Technologies group
             <ul>
               <li>
                 It is written in Node.js
@@ -177,19 +184,19 @@
           </li>
           <li>
             Click the link to open your Node-RED instance.  Note the URL, you might want to save this somewhere
-            in the event you accidentally close the tab.
+            in the event you accidentally close the tab
           </li>
         </ol>
 
         <p>
           After the workshop is over and you would like to continue to work with Node-RED you can follow
-          the steps below to get your own Bluemix account and create your own Node-RED instance.
+          the steps below to get your own Bluemix account and create your own Node-RED instance
         </p>
 
         <ol>
           <li>
             Go to <a href="http://bluemix.net" target="_blank">bluemix.net</a> and login.
-            If you have not registered you can sign up for a free 30 day trial.
+            If you have not registered you can sign up for a free 30 day trial
           </li>
           <li>
             Click the <a href="https://console.ng.bluemix.net/#/store" target="_blank">catalog link</a> 
@@ -197,14 +204,14 @@
           </li>
           <li>
             Select either the Internet of Things Starter or the Node-RED starter.  The only
-            difference is the services that get bound to your application.
+            difference is the services that get bound to your application
           </li>
           <li>
             Give your application a name and a host name and click create
           </li>
           <li>
             In about a minute Bluemix will finish provisioning the application and your 
-            app will be available at the host your picked.
+            app will be available at the host your picked
           </li>
         </ol>
       </div>
@@ -215,7 +222,7 @@
       <div class="slide-content">
         <ol>
           <li>Open the provided URL in your browser</li>
-          <li>You will brought to the Node-RED landing page</li>
+          <li>You will be brought to the Node-RED landing page</li>
           <li>
             Click the button with the label "Go to your Node-RED flow editor"
           </li>
@@ -242,7 +249,7 @@
             divided into different categories
             <ul>
               <li>
-                Input - These nodes generally kick of your flows, this is where  data comes from
+                Input - These nodes generally kick off your flows, this is where  data comes from
               </li>
               <li>
                 Output - These nodes usually end your flows, outputting the data
@@ -287,7 +294,7 @@
         <ul>
           <li>
             Data is passed between nodes using JSON objects, more specifically
-            in Node-RED the object is called 'msg'.
+            in Node-RED the object is called 'msg'
           </li>
           <li>
             The msg object maintains its state throughout the entire flow
@@ -295,16 +302,16 @@
           <li>
             Most nodes will place data in a property of the msg object called "payload".
             For example when you use the http request node the result of making the
-            request will be placed in msg.payload.
+            request will be placed in msg.payload
           </li>
           <li>
             Nodes can and will overwrite previous values in the msg object, so if you need to save the value you will need to save it off to another
-            property of the msg object.  This is particularly important for the payload property.
+            property of the msg object.  This is particularly important for the payload property
           </li>
           <li>
             Nodes may accept "parameters" via properties of the msg object.
             For example to set the URL used in the http request node programmatically
-            you can set msg.url to any valid URL.
+            you can set msg.url to any valid URL
           </li>
         </ul>
       </div>
@@ -332,11 +339,10 @@
             Double click on the Inject node to open the configuration options
           </li>
           <li>
-            Under the Payload drop down select "string"
+            Under the Payload drop down select <b>string</b>
           </li>
           <li>
-            After selecting string a new text field will show up below the 
-            drop down, in the field enter the string <b>"hello world"</b>
+            After selecting string in the drop down a new text field will show up, in the field enter the string <b>hello world</b>
           </li>
           <li>
             Click Ok on the configuration options
@@ -372,13 +378,28 @@
             In the function dialog enter the following code, change the 
             value of msg.name to your own name
             <script type="syntaxhighlighter" class="brush: js">
-              msg.name="Ryan";
+              msg.name = 'Ryan';
               return msg;
             </script>
           </li>
           <li>
+            Click Ok to close the configuration settings dialog
+          </li>
+          <li>
             Connect the inject node to the function node
           </li>
+        </ol>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+      </div>
+    </section>
+    
+        <section class="slide">
+      <div class="header">Node-RED Hello World 2.0 Part 2</div>
+      <div class="slide-content">
+        <ol>
           <li>
             Drag and drop a template node from the function section to the sheet
           </li>
@@ -438,6 +459,18 @@
           <li>
             Click Ok to close the configuration settings dialog
           </li>
+        </ol>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+      </div>
+    </section>
+    
+        <section class="slide">
+      <div class="header">Node-RED Hello World 3.0 Part 2</div>
+      <div class="slide-content">
+        <ol>
           <li>
             Delete the debug node from the flow
           </li>
@@ -448,7 +481,7 @@
             Click the Deploy node to make the changes to the flow live
           </li>
           <li>
-            Open another browser tab and go to http://host.mybluemix.net/hello?name=John, replacing host with your Node-RED host name,
+            Open another browser tab and go to http://node-red-ws-[numb].mybluemix.net/hello?name=John, replacing [numb] with number in your Node-RED host name,
             and you should see Hello John in your browser
           </li>
         </ol>
@@ -483,7 +516,7 @@
           </li>
           <li>Click Deploy to make the flow live</li>
           <li>
-            Open another browser tab and go to http://host.mybluemix.net/hello?name=John, replacing host with your Node-RED host name,
+            Open another browser tab and go to http://node-red-ws-[numb].mybluemix.net/hello?name=John, replacing [numb] with the number in your Node-RED host name,
             and you should see Hello John in your browser and also get a text message to your phone with the text Hello John
           </li>
         </ol>
@@ -498,7 +531,7 @@
     </section>
 
     <section class="slide">
-      <div class="header">Map Bart Stations</div>
+      <div class="header">Map BART Stations</div>
       <div class="slide-content">
         <p>
           In this example we will design a flow that lays out all the
@@ -521,7 +554,7 @@
               with some HTML, JavaScript, and CSS to render a Google Map
             </li>
             <li>
-              When the page renders a request will be sent to the websocket to get the station information
+              When the page renders, a request will be sent to the websocket to get the station information
             </li>
             <li>
               When the page gets the station information it will add markers
@@ -533,7 +566,7 @@
     </section>
 
     <section class="slide">
-      <div class="header">Build WebSocket Flow</div>
+      <div class="header">Build The WebSocket Flow</div>
       <div class="slide-content">
         <ol>
           <li>Create a new sheet in Node-RED by clicking the plus(+) icon</li>
@@ -554,7 +587,7 @@
           <li>Click Ok to the websocket-listener configuration dialog</li>
           <li>Click Ok to the websocket node configuration dialog</li>
           <li>
-            Drag and drop the http request node from the function section
+            Drag and drop the http request node from the function section onto the sheet
           </li>
           <li>
             Double click the http request node to open the configuration 
@@ -572,6 +605,14 @@
           <li>
             Connect the websocket node to the http request node
           </li>
+        </ol>
+      </div>
+    </section>
+    
+    <section class="slide">
+      <div class="header">Build The WebSocket Flow Part 2</div>
+      <div class="slide-content">
+        <ol>
           <li>
             Drag and drop an xml function node to the sheet
           </li>
@@ -642,7 +683,7 @@
             Click the Deploy button to make the flow live
           </li>
           <li>
-            Open a browser and go to http://host.mybluemix.net/mapstations 
+            Open a browser and go to http://node-red-ws-[numb].mybluemix.net/mapstations replacing [numb] with the number in your Node-RED host name 
             and you should see a Google map with markers for all the BART
             stations
           </li>
@@ -658,7 +699,7 @@
     </section>
 
     <section class="slide">
-      <div class="header">Connecting Data From Devices</div>
+      <div class="header">Collecting Data From Devices</div>
       <div class="slide-content">
         <ul>
           <li>
@@ -668,7 +709,7 @@
             Node-RED makes can make it very easy to collect this data and process it
             <ul>
               <li>
-                You can run Node-RED can run on the hardware itself (only requires Node)
+                Node-RED can run on the hardware itself (only requires Node)
                 and read data from I/O pins, over Bluetooth, and from the network
               </li>
               <li>
@@ -687,7 +728,7 @@
       <div class="slide-content">
         <p>
           We want to build a fitness tracking app that will run on an iPhone.  In addition
-          to the iPhone app there will also we a web app for users to view and replay
+          to the iPhone app there will also be a web app for users to view and replay
           past fitness activities.
           <ul>
             <li>
@@ -699,7 +740,7 @@
             </li>
             <li>
               The app on the phone will receive the heart rate data and add things like
-              GPS, speed, and latitude
+              GPS, speed, and altitude
             </li>
             <li>
               The phone will then take the data and transmit to an MQTT broker
@@ -712,10 +753,6 @@
               We will then create APIs for client apps to access this data
             </li>
           </ul>
-        <p>
-          We will connect a watch measuring heart rate data to an iPhone.  The iPhone will
-          add GPS data, speed, altitude, user, etc
-        </p>
       </div>
     </section>
 
@@ -730,6 +767,9 @@
         </p>
         <ol>
           <li>
+          	Click the plus (+) icon to create a new sheet
+          </li>
+          <li>
             Drag and drop an mqtt node from the input section onto the sheet
           </li>
           <li>
@@ -743,7 +783,7 @@
             and <b>1883</b> for the Port
           </li>
           <li>
-            For the Client ID enter <b>a:dp21ga:yourfullname</b>, replacing yourfillname with your full name without spaces, for example a:dp21ga:ryanbaxter
+            For the Client ID enter <b>a:dp21ga:yourfullname</b>, replacing yourfullname with your full name without spaces, for example a:dp21ga:ryanbaxter
           </li>
           <li>
             In the Username field enter <b>a-dp21ga-n4lwoo3tq0</b>
@@ -779,7 +819,7 @@
         <ol>
           <li>
             Add a json node to the sheet and connect it to the mqtt node.
-            This will convert the string to a JSON object.
+            This will convert the string to a JSON object
           </li>
           <li>
             Add a function node to the sheet and connect it to the JSON node
@@ -795,19 +835,24 @@
         </ol>
       </div>
     </section>
+    
+        <section class="slide">
+      <div class="header">About The Data</div>
+      <div class="slide-content">
+        <p>
+          The data we get from the MQTT broker about the fitness activity can be
+          categorized into three different events.</p>
+        <ul>
+          <li>A start event for when a user starts a fitness activity</li>
+          <li>An end event for when a user ends a fitness activity</li>
+          <li>A data point representing data while the fitness activity is taking place</li>
+        </ul>
+      </div>
+    </section>
 
     <section class="slide">
       <div class="header">Augmenting The Data</div>
       <div class="slide-content">
-        <p>
-          The data we get from the mqtt broker about the fitness activity can be
-          categorized into three different events.
-          <ul>
-            <li>A start event for when a user starts a fitness activity</li>
-            <li>An end event for when a user ends a fitness activity</li>
-            <li>A data point representing data while the fitness activity is taking place</li>
-          </ul>
-        </p>
         <p>
           Users might find information about the current temperature to be useful
           when performing a fitness activity.  In order to get this information
@@ -817,11 +862,8 @@
         </p>
         <ol>
           <li>
-            We need to know what type of event we are processing in the flow.
-            A switch node allows us to add some logic to our flows and is perfect for what
-            we need.
             Drag and drop a switch node from the function section to the sheet
-            and connect it to the function node.
+            and connect it to the function node
           </li>
           <li>
             Double click the switch node to open the configuration settings
@@ -830,23 +872,23 @@
             In the "If msg." field enter <b>payload.label</b>
           </li>
           <li>
-            We will have three conditions we want to test for, by default the switch 
+            We will have three conditions we want to test for. By default the switch 
             statement only has one condition, click the <b>+Add</b> button twice to add 
             two more
           </li>
           <li>
             In the first conditional field make sure the operator drop down is set to 
             <b>==</b>
-            and enter the string <b>"start_trip"</b> in field
+            and enter the string <b>start_trip</b> in field
           </li>
           <li>
             In the second conditional field make sure the operator drop down is set to 
             <b>==</b>
-            and enter the string <b>"end_trip"</b> in the field
+            and enter the string <b>end_trip</b> in the field
           </li>
           <li>
             In the third conditional field make sure the operator drop down is set to 
-            <b>"otherwise"</b>
+            <b>otherwise</b>
           </li>
           <li>
             Click Ok to close the configuration settings dialog
@@ -856,7 +898,7 @@
     </section>
 
     <section class="slide">
-      <div class="header">Setting Up The HTTP Request To Forcast.io</div>
+      <div class="header">The HTTP Request To Forcast.io</div>
       <div class="slide-content">
         <p>
           You can make requests to 
@@ -886,17 +928,22 @@
             </script>
           </li>
           <li>
-            In the above code we are just setting up the correct URL for the request to
-            forcast.io by extracting the latitude and longitude from the payload that
-            we got from the MQTT broker and adding it to the URL.  You will also notice that we take the current payload and set it to msg.data, that is because msg.payload will be set to the result of the HTTP request to forcast.io and we will loose that data if we don't copy it out of the payload variable.
-          </li>
-          <li>
             Click Ok to the configuration settings dialog
           </li>
           <li>
             Connect the function node to the first two outputs of the switch node
           </li>
         </ol>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
       </div>
     </section>
 
@@ -911,7 +958,7 @@
           <li>
             We don't need to modify the configuration of the http request node like we had
             to in previous examples because the http request node will use the msg.url
-            value we set in the previous function node.
+            value we set in the previous function node
           </li>
           <li>
             Add a json node from the function section after the http request node to 
@@ -930,7 +977,7 @@
         </p>
         <ol>
           <li>
-            Drag and drop a function node to the sheet.
+            Drag and drop a function node to the sheet
           </li>
           <li>
             Double click the function node to open the configuration settings and add
@@ -941,11 +988,6 @@
               return msg;
             </script>
           </li>
-          <li>
-            Here we are getting the current temperature from the response from forcast.io
-            and adding it to the data from the MQTT broker.  Finally we set the data
-            from the MQTT broker back to msg.payload and return msg.
-          </li>
           <li>Connect the function node to the json node</li>
         </ol>
       </div>
@@ -955,7 +997,7 @@
       <div class="header">Store Data In A Mongo DB</div>
       <div class="slide-content">
         <p>
-          We have the data we need, lets persist it to a Mongo DB so it can be
+          We have the data we need, let's persist it to a Mongo DB so it can be
           retrieved later on by our APIs.
         </p>
         <ol>
@@ -963,31 +1005,31 @@
             Drag and drop a mongodb output node from the storage section.  There are
             two Mongo DB nodes in the storage section, one to query the DB and the other
             to store data in the DB.  The one to store data in the database will only
-            have an input connector.
+            have an input connector
           </li>
           <li>
             Connect the function node to the mongodb node in order to persist the 
-            start and end events with temperature data to the database.
+            start and end events with temperature data to the database
           </li>
           <li>
             Connect the third output of the switch statement to the mongodb node as well.
-            This will persist the data points of the fitness activity to the database.
+            This will persist the data points of the fitness activity to the database
           </li>
           <li>
             Double click the the mongodb node to open the configuration settings
           </li>
           <li>
-            In the Service drop down select the option that begins with <b>"mongoLab-"</b>.
-            There will be a number after the dash, but it will be different for everyone.
+            In the Service drop down select the option that begins with <b>mongoLab-</b>.
+            There will be a number after the dash, but it will be different for everyone
           </li>
           <li>
-            In the collection field enter <b>"fitness"</b>
+            In the collection field enter <b>fitness</b>
           </li>
           <li>
-            In the operation drop down select <b>"save"</b>
+            In the operation drop down select <b>save</b>
           </li>
           <li>
-            Make sure the option to "Only store msg.payload object?" is checked.
+            Make sure the option to "Only store msg.payload object?" is checked
           </li>
           <li>
             Click Ok to save the mongodb nodes configuration settings
@@ -1042,6 +1084,14 @@
           <li>
             Click Ok to close the configuration settings
           </li>
+        </ol>
+      </div>
+    </section>
+    
+        <section class="slide">
+      <div class="header">Activities API Part 2</div>
+      <div class="slide-content">
+        <ol>
           <li>
             Drag and drop a function node to the sheet
           </li>
@@ -1079,14 +1129,14 @@
             Double click the mongodb node to open the configuration settings
           </li>
           <li>
-            In the Service drop down select the option that begins with <b>"mongoLab-"</b>.
+            In the Service drop down select the option that begins with <b>mongoLab-</b>.
             There will be a number after the dash but it will be different for everyone.
           </li>
           <li>
-            In the collection field enter <b>"fitness"</b>
+            In the collection field enter <b>fitness</b>
           </li>
           <li>
-            In the operation field select <b>"find"</b>
+            In the operation field select <b>find</b>
           </li>
           <li>
             Click Ok to close the configuration settings dialog
@@ -1101,8 +1151,8 @@
             Click the Deploy button to make the flow live
           </li>
           <li>
-            Open a browser and hit http://node-red-host.mybluemix.net/activities
-            replacing node-red-host with your host name.  You should see a JSON
+            Open a browser and hit http://node-red-ws-[numb].mybluemix.net/activities
+            replacing [numb] with the number in your Node-RED host name.  You should see a JSON
             array with all the separate fitness activities listed.
           </li>
         </ol>
@@ -1139,9 +1189,14 @@
           <li>
             Click Ok to close the configuration settings dialog
           </li>
-          <li>
-            Drag and drop a function node to the sheet and connect it to the http node
-          </li>
+        </ol>
+      </div>
+    </section>
+    
+    <section class="slide">
+      <div class="header">Data Points API Part 2</div>
+      <div class="slide-content">
+        <ol>
           <li>
             Double click the function node to open the configuration settings
           </li>
@@ -1172,13 +1227,21 @@
     <section class="slide">
       <div class="header">Test The APIs</div>
       <div class="slide-content">
-        <p>
-          In a browser tab go to http://node-red-host.mybluemix.net/activities
-            to see all activities.  Pick one and copy the userId value and the tripName
-            value.  Open another browser window and go to http://node-red-host.mybluemix.net/activities/userId/tripName replacing userId and tripName with the values
-            from the activity you chose.  You should see an array of all the data points
-            for that activity.
-        </p>
+        <ul>
+          <li>
+            In a browser tab go to http://node-red-ws-[numb].mybluemix.net/activities
+            to see all activities
+          </li>
+          <li>  
+            Pick one and copy the userId value and the tripName value
+          </li>
+          <li>
+            Open another browser window and go to http://node-red-ws-[numb].mybluemix.net/activities/userId/tripName replacing userId and tripName with the values from the activity you chose
+          </li>
+          <li>
+            You should see an array of all the data points for that activity
+          </li>
+        </ul>
       </div>
     </section>
 
