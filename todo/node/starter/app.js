@@ -21,7 +21,7 @@ var path = require('path');
 var optional = require('optional');
 
 var app = express();
-app.set('port', process.env.VCAP_APP_PORT || 3000);
+app.set('port', process.env.PORT || 3000);
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 
